@@ -1,0 +1,247 @@
+---
+title: "Modeling reference"
+subtitle: "The model families we use, and how to read each one"
+page-type: reference
+toc: true
+---
+
+Every model in this course is the same machine wearing different clothes: a structured statement about how
+a response relates to one or more predictors, fitted to data, and read back as a claim with a stated amount
+of uncertainty. This page collects the model families we use side by side — their algebraic form, what each
+coefficient *means*, and how to read the part of the R output you actually need. One `lm()` or `glm()` call
+is shown per family so you can connect the math to the call.
+
+All numbers below come from the recurring `studyhabits` teaching dataset — **synthetic; seed set**
+(`set.seed(33003)`, $n = 200$ students in one intro course). They are fitted "as if fit" for teaching and
+are **not verified** (the course's math gate is open by design in this build). They stand in for a campus
+learning-analytics study, not real students. Use them to learn the *reading*, not as findings.
+
+Keep the [notation glossary](notation-glossary.qmd) open alongside this page — every symbol here is defined
+there.
+
+---
+
+## 1. Simple linear regression
+
+**Form.** One numeric response, one numeric predictor, a straight line:
+
+$$
+\hat{y} = b_0 + b_1 x .
+$$
+
+**What each coefficient means.** $b_0$ is the predicted response when $x = 0$; $b_1$ is the *slope* — the
+change in predicted $\hat y$ per one-unit increase in $x$. The hat on $\hat y$ is a reminder that the line
+gives a predicted average, not an individual outcome.
+
+**`studyhabits` fit — `final ~ study`:**
+
+```r
+lm(final ~ study, data = studyhabits)
+# (Intercept)   52.0
+# study          2.5
+# R-squared 0.34, residual SE (s) 9.0
+```
+
+So $\hat{y} = 52.0 + 2.5\,x$ with $x =$ `study`. Read it as: the intercept $b_0 = 52.0$ is the predicted
+final at $0$ weekly study hours — but no student studies zero, so this is *extrapolation*; flag it rather
+than interpret it literally. The slope $b_1 = 2.5$ says each extra weekly study hour is associated with a
+$2.5$-point higher predicted final, on average. The fit summaries: correlation $r = 0.58$, so
+$R^2 = 0.34$ — `study` accounts for about a third of the variation in `final`. The residual standard error
+$s = 9.0$ is the typical miss, in points. For the slope, $\mathrm{SE}(b_1) = 0.25$ gives $t = 10.0$ and a
+95% CI of about $(2.0,\ 3.0)$ — comfortably away from $0$, so the association is not plausibly noise.
+
+**Reading the output.** Find the `study` row: the `Estimate` column is $b_1$, the `Std. Error` column is
+$\mathrm{SE}(b_1)$, their ratio is $t$, and the $p$-value tests $b_1 = 0$. The `(Intercept)` row is $b_0$.
+Below, `Multiple R-squared` is $R^2$ and `Residual standard error` is $s$.
+
+---
+
+## 2. Multiple regression and holding constant
+
+**Form.** One response, several predictors, one slope each:
+
+$$
+\hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \cdots .
+$$
+
+**What each coefficient means.** Each slope is now a *partial* slope: the change in $\hat y$ per one-unit
+increase in that predictor **holding the others constant** ("adjusting for" them). That phrase is the whole
+point of the family.
+
+**`studyhabits` fit — `final ~ study + prior_gpa`:**
+
+```r
+lm(final ~ study + prior_gpa, data = studyhabits)
+# (Intercept)   35.0
+# study          1.8
+# prior_gpa      8.0
+# R-squared 0.51
+```
+
+So $\hat{y} = 35.0 + 1.8\,x_1 + 8.0\,x_2$ with $x_1 =$ `study`, $x_2 =$ `prior_gpa`. The reading that
+matters: the `study` slope **drops from $2.5$ (crude, from §1) to $1.8$ (adjusted)** once `prior_gpa` is
+held constant. That gap is *confounding made visible* — stronger students both study more and score higher,
+so some of the raw $2.5$ was really `prior_gpa` riding along. After adjustment, $1.8$ is the part
+attributable to study *among students with the same prior GPA*. The `prior_gpa` slope $8.0$ is points per
+GPA point, holding study fixed. The model now explains $R^2 = 0.51$ of the variation.
+
+**Reading the output.** Same table shape as §1, one row per predictor. The number you compare to the simple
+model is the `study` estimate — moving from $2.5$ to $1.8$ is the adjustment story, not a new error.
+
+---
+
+## 3. Categorical predictors (indicator coding)
+
+**Form.** A categorical predictor with $k$ levels becomes $k - 1$ indicator (dummy) variables; one level is
+the baseline:
+
+$$
+\hat{y} = b_0 + b_1 D_{\text{hybrid}} + b_2 D_{\text{online}} .
+$$
+
+**What each coefficient means.** $b_0$ is the baseline group's mean; each other coefficient is that group's
+**difference from the baseline**, not its own mean.
+
+**`studyhabits` fit — `final ~ format`:**
+
+```r
+lm(final ~ format, data = studyhabits)
+# (Intercept)    78.0   # baseline = in_person
+# formathybrid   -3.0   # hybrid mean 75.0
+# formatonline   -7.0   # online mean 71.0
+```
+
+Baseline `in_person` has mean $78.0$ (the intercept). The `hybrid` coefficient $-3.0$ means hybrid scores
+$3$ points below in-person, so its mean is $75.0$; `online` at $-7.0$ sits $7$ below, mean $71.0$. The model
+fits exactly the three group means — $78 / 75 / 71$ — but reports them as *contrasts* against the baseline.
+If a coefficient's CI excludes $0$, that group differs detectably from `in_person`; to compare hybrid with
+online directly you would re-level or test that contrast separately.
+
+**Reading the output.** R names the rows `format` + level (e.g. `formathybrid`). The missing level is the
+baseline, folded into `(Intercept)`. Always check *which* level is baseline before interpreting signs.
+
+---
+
+## 4. Interactions (effect modification)
+
+**Form.** A product term lets one predictor's slope depend on another:
+
+$$
+\hat{y} = b_0 + b_1 x + b_2 D + b_3 (x \cdot D) .
+$$
+
+**What each coefficient means.** $b_1$ is the slope of $x$ in the baseline group; $b_3$ is how much that
+slope *changes* in the other group. The slope is no longer a single number — it is modified.
+
+**`studyhabits` fit — `final ~ study * works`:**
+
+```r
+lm(final ~ study * works, data = studyhabits)
+# study              2.8    # slope for works = FALSE
+# worksTRUE         -4.0    # offset at study = 0
+# study:worksTRUE   -1.2    # change in the study slope
+```
+
+For non-workers (`works = FALSE`) the `study` slope is $2.8$. For workers (`works = TRUE`) the slope is
+$2.8 + (-1.2) = 1.6$ — the interaction coefficient $-1.2$ is the *difference in slopes*. The main effect of
+`works`, $-4.0$, is the gap between groups at `study` $= 0$ only (so, like an intercept, often an
+extrapolation). The substantive reading: studying is associated with a *smaller* gain for students who also
+work many hours ($1.6$ vs. $2.8$ points per hour) — the study–final relationship is **modified** by `works`.
+
+**Reading the output.** The `study:worksTRUE` row is the interaction; add it to the `study` row to get the
+non-baseline group's slope. A `*` in the formula expands to both main effects plus the interaction.
+
+---
+
+## 5. Logistic regression
+
+**Form.** The response is binary, so we model the log-odds (logit) of "success" as linear:
+
+$$
+\operatorname{logit}(\hat{p}) = \log\!\Big(\frac{\hat p}{1 - \hat p}\Big) = b_0 + b_1 x .
+$$
+
+**What each coefficient means.** $b_1$ is the change in *log-odds* per unit of $x$ — not directly in
+probability. Exponentiate it: $\mathrm{OR} = e^{b_1}$ is the **odds ratio**, the multiplicative change in
+the odds of success per one-unit increase in $x$.
+
+**`studyhabits` fit — `passed ~ study`:**
+
+```r
+glm(passed ~ study, data = studyhabits, family = binomial)
+# (Intercept)  -2.00
+# study          0.35    # OR = exp(0.35) = 1.42
+```
+
+So $\operatorname{logit}(\hat p) = -2.0 + 0.35\,x$. The odds ratio per study hour is
+$e^{0.35} \approx 1.42$: each extra weekly hour multiplies the odds of passing by about $1.42$. Probabilities
+follow from inverting the logit. At $x = 0$, $\hat p = 1 / (1 + e^{2.0}) \approx 0.12$; at $x = 10$,
+$\operatorname{logit} = 1.5$ so $\hat p = 1 / (1 + e^{-1.5}) \approx 0.82$. The predicted probability crosses
+$0.5$ near $x \approx 5.7$ — the S-curve's midpoint.
+
+**Reading the output.** Coefficients print on the **log-odds scale**; do not read them as probabilities or
+slopes-in-points. Exponentiate (`exp(coef(model))`) for odds ratios. Note `family = binomial` and `glm`,
+not `lm`.
+
+---
+
+## 6. ANOVA as regression
+
+**Form.** One-way ANOVA compares group means; it is exactly the indicator regression of §3 read through a
+sum-of-squares lens:
+
+$$
+\mathrm{SST} = \mathrm{SS}_{\text{model}} + \mathrm{SS}_{\text{error}} .
+$$
+
+**What it means.** ANOVA asks whether the group means differ more than chance would allow, by splitting total
+variation into a between-groups part and a within-groups part and comparing them with an $F$-test. Fitting
+`final ~ format` as a regression and running the ANOVA give the **same $F$** and the same split.
+
+**`studyhabits` fit — `final ~ format` (as ANOVA):**
+
+```r
+anova(lm(final ~ format, data = studyhabits))
+# group means: in_person 78, hybrid 75, online 71
+# grand mean approx 74.7; F-test equals the regression overall F
+```
+
+The three `format` means are $78 / 75 / 71$ with grand mean $\approx 74.7$. The one-way ANOVA $F$ equals the
+overall $F$ of the §3 indicator regression, and the total sum of squares partitions identically. The lesson:
+**ANOVA is regression with a categorical predictor** — same model, two vocabularies. Use the regression view
+when you want coefficient-level contrasts (§3); use the ANOVA view when you want a single omnibus "do the
+groups differ at all?" test.
+
+**Reading the output.** The `anova()` table shows the `format` row's $F$ value and $p$-value (the omnibus
+test) plus the sums of squares that add to $\mathrm{SST}$. To name *which* groups differ, return to the
+coefficient table.
+
+---
+
+## At a glance
+
+| Family | Formula (R) | Coefficient reads as | Output to find |
+|---|---|---|---|
+| Simple linear | `final ~ study` | slope = points per study hour | `study` row, $R^2$, $s$ |
+| Multiple | `final ~ study + prior_gpa` | partial slope, holding others fixed | each predictor row; adjusted slope |
+| Categorical | `final ~ format` | difference from baseline group | level rows; check baseline |
+| Interaction | `final ~ study * works` | slope that changes across groups | `study:worksTRUE` row |
+| Logistic | `passed ~ study` | log-odds; $e^{b_1}$ = odds ratio | exponentiate; `family = binomial` |
+| ANOVA | `final ~ format` | omnibus group difference | `anova()` $F$, sums of squares |
+
+After every number you read off an output, say what it means for the modeling question in one sentence, and
+ask the model-criticism question the family invites: is this slope crude or adjusted? Is the intercept an
+extrapolation? Is the coefficient on the log-odds scale? The output is only the start of the claim.
+
+## See also
+
+- [Notation glossary](notation-glossary.qmd) — every symbol used above, defined.
+- [Resources index](index.qmd) — setup and study aids in one place.
+
+## Public vs. graded
+
+These notes, the examples, and the practice here are **public and ungraded** — study material only. No
+graded prompts, answer keys, rubrics, point values, or due dates appear on this site. Graded modeling
+checkpoints, labs, quizzes, homework/modeling memos, the midterm, the project, and the final live in
+**Blackboard (the LMS)**, which is authoritative for due dates, submissions, and grades. If this page and
+Blackboard ever disagree, follow Blackboard.

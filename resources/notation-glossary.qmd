@@ -1,0 +1,98 @@
+---
+title: "Notation glossary"
+subtitle: "Symbols and conventions used across the course"
+page-type: reference
+toc: true
+---
+
+This glossary collects the symbols and modeling conventions used everywhere in the course. The same
+letters mean the same things every week, so once you learn a symbol here you can read any model on the
+site without relearning it. Keep this page open beside the weekly notes. When a week introduces a number —
+a slope, an $R^2$, a standard error — come back here to remind yourself what the symbol stands for and how
+to say it in a plain sentence.
+
+A guiding distinction runs through the whole list: we separate the **parameters** (the unknown true values
+in the population, written with Greek letters) from the **estimates** (the values we compute from a sample,
+written with Latin letters or a hat). A model is a structured claim about the parameters; the data give us
+estimates of them, together with a statement of how uncertain those estimates are.
+
+## Core symbols
+
+| Symbol | Read it as | Plain-language meaning |
+|---|---|---|
+| $y$ | "why" | The **response** (outcome) — the variable the model tries to explain or predict. In the recurring dataset this is `final`, the final exam score. |
+| $x$, $x_1, x_2, \dots$ | "ex," "ex-one," "ex-two" | The **predictors** (explanatory variables, inputs). A single $x$ for one predictor; $x_1, x_2, \dots$ once there are several. |
+| $n$ | "en" | The number of **observations** (rows, units). The recurring dataset has $n = 200$ students. |
+| $\beta_0$ | "beta-naught" | The **intercept parameter** — the model's true (unknown) value of $y$ when every predictor is $0$. A population quantity. |
+| $\beta_1$ | "beta-one" | A **slope parameter** — the true (unknown) change in $y$ per one-unit change in a predictor, holding the others fixed. |
+| $b_0, b_1$ (also $\hat\beta_0, \hat\beta_1$) | "bee-naught, bee-one" | The **fitted estimates** of $\beta_0, \beta_1$ computed from the sample. The hat-beta and the $b$ notation mean the same thing. |
+| $\hat{y}$ | "why-hat" | The **fitted / predicted** value the model gives for an observation: $\hat{y} = b_0 + b_1 x$ (with more terms when there are more predictors). |
+| $e = y - \hat{y}$ | "ee," the residual | The **residual** — what the model missed for one observation: actual minus fitted. Positive means the model under-predicted; negative means it over-predicted. |
+| $r$ | "ar" | The **correlation** between two numeric variables, between $-1$ and $1$. Measures strength and direction of a *linear* association only. |
+| $R^2$ | "ar-squared" | The **coefficient of determination** — the proportion of variation in $y$ the model explains, between $0$ and $1$. For simple regression $R^2 = r^2$. |
+| $s$ | "ess" | The **residual standard error** — the typical size of a residual, in the units of $y$. A smaller $s$ means tighter predictions. |
+| $\mathrm{SE}(b_1)$ | "ess-ee of bee-one" | The **standard error of a coefficient** — how much the estimate $b_1$ would bounce around from sample to sample. The yardstick for its uncertainty. |
+| $t$ | "tee" | The **test statistic** $t = b_1 / \mathrm{SE}(b_1)$ — how many standard errors the estimate sits from $0$. Large $|t|$ is evidence the predictor matters. |
+| CI | "see-eye" | A **confidence interval** — a range of plausible values for a parameter, e.g. a 95% CI for a slope. Width reflects uncertainty. |
+| $\operatorname{logit}(p) = \log\!\big(\tfrac{p}{1-p}\big)$ | "logit of pee" | The **log-odds** of a probability $p$. The scale on which logistic regression is linear; it maps a probability in $(0,1)$ to the whole number line. |
+| OR $= e^{\beta_1}$ | "odds ratio" | The **odds ratio** — exponentiating a logistic slope turns a log-odds change into a multiplicative factor on the odds, per one-unit change in the predictor. |
+
+We write math in `$...$` / `$$...$$` so it renders as MathML in the browser — never as an image. The fitted
+line for one predictor, for example, is
+
+$$\hat{y} = b_0 + b_1 x,$$
+
+and a residual for a single observation is $e = y - \hat{y}$.
+
+## Modeling conventions
+
+The symbols above are only half the language. The other half is a set of recurring *moves* — habits of
+interpretation that apply no matter which model is on the page.
+
+**A slope is a holding-others-fixed comparison.** Read $b_1$ as: "comparing observations that differ by one
+unit in this predictor but are equal on every other predictor in the model, the predicted $y$ differs by
+$b_1$, on average." The phrase "holding constant" or "adjusting for" is doing real work — the slope is a
+comparison *within* the model you fit, not a universal truth about the variable.
+
+**Crude vs. adjusted.** A **crude** slope comes from a model with that predictor alone; an **adjusted**
+slope comes from a model that also includes other predictors. When the adjusted slope differs from the
+crude one, the other predictors were **confounding** the relationship. Always say which kind you are
+reporting — a slope means different things depending on what is held fixed alongside it.
+
+**Indicator coding and a baseline.** A categorical predictor enters a model through **indicator (dummy)
+variables**: one category is chosen as the **baseline**, and each remaining category gets a coefficient
+read as its difference from that baseline. So with three formats and `in_person` as baseline, the `hybrid`
+coefficient is "hybrid mean minus in_person mean," and the baseline mean lives in the intercept. The
+baseline is a reference point, not a judgment about which category is "normal."
+
+**An interaction means within-group slopes.** When two predictors **interact**, the slope of one depends on
+the value of the other — the relationship is **modified**. We read an interaction by computing the slope
+*separately within each group*: a main slope for the baseline group, and that slope plus the interaction
+coefficient for the other group. Effect modification is a feature to report, not a nuisance to remove.
+
+**Logistic regression reports an odds ratio plus a predicted probability.** Because logistic coefficients
+live on the log-odds scale, we translate them for human readers in two complementary ways. Exponentiate a
+coefficient to get the **odds ratio**, $\mathrm{OR} = e^{\beta_1}$, a multiplicative effect on the odds.
+And convert the fitted log-odds back to a **predicted probability** via
+
+$$\hat{p} = \frac{1}{1 + e^{-(b_0 + b_1 x)}},$$
+
+so you can say "at this predictor value, the model predicts about this chance." Always give at least one
+predicted probability at a meaningful $x$, because an odds ratio alone hides the actual size of the chance.
+
+## How to use this page
+
+When a weekly note shows model output, name each piece against this glossary before interpreting it:
+identify the response $y$ and the predictors $x$; separate the estimates $b_0, b_1$ from the parameters
+they estimate; read $R^2$ and $s$ as *fit*, and $\mathrm{SE}(b_1)$, $t$, and the CI as *uncertainty*. Then
+restate the slope as a holding-others-fixed comparison and decide whether it is crude or adjusted. For a
+logistic model, report both the odds ratio and a predicted probability. Doing this every time turns a table
+of numbers into a careful, defensible claim — which is the whole point of the course.
+
+## Public vs. graded
+
+These notes, the examples, and the practice here are **public and ungraded** — study material only. No
+graded prompts, answer keys, rubrics, point values, or due dates appear on this site. Graded modeling
+checkpoints, labs, quizzes, homework/modeling memos, the midterm, the project, and the final live in
+**Blackboard (the LMS)**, which is authoritative for due dates, submissions, and grades. If this page and
+Blackboard ever disagree, follow Blackboard.

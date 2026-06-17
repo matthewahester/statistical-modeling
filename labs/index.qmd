@@ -1,0 +1,48 @@
+---
+title: "Labs"
+subtitle: "The hands-on modeling strand (R + Quarto), in support of statistical reasoning"
+page-type: orientation
+toc: true
+---
+
+The labs are the course's hands-on modeling strand. They run alongside the notes, not instead of them:
+where the notes develop a modeling idea and interpret it, a lab lets you *do* it — fit the model yourself,
+read the output, check the assumptions, and write a short conclusion. Computation is in service of the
+modeling, not the other way around. There are four labs across the term, each tied to a specific week.
+
+## How a lab works
+
+Every lab is built the same way, so you always know where you are:
+
+1. **Goal.** What the modeling task is meant to show, stated in one or two sentences and linked back to the
+   companion week.
+2. **Setup.** The small bit of preparation you need — the random seed, the dataset, and the modeling
+   question.
+3. **Steps.** The analysis itself, broken into numbered steps with shown R code. You read the code,
+   understand each piece, then run it yourself.
+4. **Verify.** A check that the fitted result matches the theory and the interpretation from the notes — the
+   moment where computation and reasoning meet.
+5. **AI Use Note.** A short record of any AI help, with three parts — Tool, Purpose, and Verification —
+   where verification (how you checked the output yourself) is the load-bearing field.
+
+A note on the code: in these labs the R chunks are **shown for study**, written with a fixed seed
+(`set.seed(33003)`) so they are reproducible. They are not executed on this site — you run them in your own
+R session. See the [R · Quarto setup](../resources/r-quarto-setup.qmd) page to get going.
+
+## The labs
+
+The four labs accompany the modeling-heavy weeks:
+
+- **Lab 2 — Visualizing relationships.** Looking at the data before modeling: scatterplots, summaries, and
+  the questions a graph raises. (Accompanies Week 2.)
+- **Lab 6 — Fitting multiple regression.** Adding a predictor and watching a coefficient change under
+  adjustment. (Accompanies Week 6.)
+- **Lab 10 — Cross-validation & overfitting.** Splitting data to see why a better-fitting model can predict
+  worse. (Accompanies Week 10.)
+- **Lab 11 — Logistic regression in R.** Fitting `glm()` for a binary outcome and reading odds ratios.
+  (Accompanies Week 11.)
+
+## Public vs. graded
+
+The labs here are public study material; the graded deliverable, its rubric, and due date live in
+**Blackboard (the LMS)** — this page is study and practice only.

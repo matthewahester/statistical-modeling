@@ -1,0 +1,141 @@
+# Statistical Modeling — public Quarto course site (assembled undergraduate course materials).
+# Sibling of matthewhester.com; intended to live at /statistical-modeling/ under that domain.
+# Layout/theme aligned to the matthewhester.com course family (cosmo + styles.css, dark navbar,
+# floating sidebar, right-side TOC, MathML math). site-url set for the combined deploy; this
+# repo does not self-deploy (no CI here — the hub workflow assembles the courses).
+# Boundary: this is the PUBLIC surface. Private build state (_state/), source governance
+# (source_text/), assessment shadows (assessment_shadow/), run reports (run_reports/), and
+# accessibility evidence (accessibility/) are NOT rendered.
+project:
+  type: website
+  output-dir: _site
+  # RENDER ALLOW-LIST (docs/08 §2 boundary hazard; docs/26 §6). Fails safe — only the public
+  # sections below render into _site/. Every private dir (_state/ underscore-skipped, plus
+  # source_text/, assessment_shadow/, run_reports/, accessibility/) is excluded.
+  # NOTE: a bare "*.qmd" matches RECURSIVELY in Quarto 1.8.26 and could leak nested private .qmd.
+  # List the three public root pages explicitly instead, and negate private dirs as
+  # belt-and-suspenders (docs/08 §2, docs/26 §6).
+  render:
+    - index.qmd
+    - syllabus.qmd
+    - schedule.qmd
+    - notes/*.qmd
+    - labs/*.qmd
+    - resources/*.qmd
+    - "!source_text/"
+    - "!assessment_shadow/"
+    - "!run_reports/"
+    - "!accessibility/"
+
+website:
+  title: "Statistical Modeling"
+  site-url: https://matthewhester.com/statistical-modeling/
+  description: |
+    Public-facing course materials for Statistical Modeling — regression,
+    prediction, and explanation; an assembled undergraduate course site
+    (notes, labs, and resources) curated by Matt Hester.
+  open-graph: true
+  navbar:
+    pinned: true
+    background: dark            # black top bar — the family signature
+    logo: assets/icon.png
+    logo-alt: "Statistical Modeling — a crystal course mark"
+    left:
+      - href: index.qmd
+        text: Home
+      - href: syllabus.qmd
+        text: Syllabus
+      - href: schedule.qmd
+        text: Schedule
+  sidebar:
+    style: floating
+    collapse-level: 2
+    contents:
+      - section: "Notes"
+        href: notes/index.qmd
+        contents:
+          - href: notes/index.qmd
+            text: "Notes overview"
+          - section: "Part I — Framing & data (Wk 1–2)"
+            contents:
+              - href: notes/week-01-models-data-statistical-questions.qmd
+                text: "1 — Models, data & statistical questions"
+              - href: notes/week-02-visualization-and-the-modeling-workflow.qmd
+                text: "2 — Visualization & the modeling workflow"
+          - section: "Part II — Simple regression (Wk 3–5)"
+            contents:
+              - href: notes/week-03-simple-linear-regression.qmd
+                text: "3 — Simple linear regression"
+              - href: notes/week-04-interpreting-regression-output.qmd
+                text: "4 — Interpreting regression output"
+              - href: notes/week-05-diagnostics-and-model-adequacy.qmd
+                text: "5 — Diagnostics & model adequacy"
+          - section: "Part III — Multiple regression & explanation (Wk 6–9)"
+            contents:
+              - href: notes/week-06-multiple-regression-and-adjustment.qmd
+                text: "6 — Multiple regression & adjustment"
+              - href: notes/week-07-confounding-explanation-midterm.qmd
+                text: "7 — Confounding & explanation (midterm)"
+              - href: notes/week-08-categorical-predictors-group-comparisons.qmd
+                text: "8 — Categorical predictors & groups"
+              - href: notes/week-09-interactions-and-effect-modification.qmd
+                text: "9 — Interactions & effect modification"
+          - section: "Part IV — Prediction & broader models (Wk 10–13)"
+            contents:
+              - href: notes/week-10-prediction-and-validation.qmd
+                text: "10 — Prediction & validation"
+              - href: notes/week-11-logistic-regression.qmd
+                text: "11 — Logistic regression"
+              - href: notes/week-12-model-comparison-and-selection.qmd
+                text: "12 — Model comparison & selection"
+              - href: notes/week-13-anova-regression-broader-modeling.qmd
+                text: "13 — ANOVA, regression & broader ideas"
+          - section: "Part V — Reporting & synthesis (Wk 14–15)"
+            contents:
+              - href: notes/week-14-reproducible-modeling-reports.qmd
+                text: "14 — Reproducible modeling reports"
+              - href: notes/week-15-final-review-synthesis.qmd
+                text: "15 — Final review & synthesis"
+      - section: "Labs"
+        href: labs/index.qmd
+        contents:
+          - href: labs/index.qmd
+            text: "Labs overview"
+          - href: labs/lab-02-visualizing-relationships.qmd
+            text: "Lab 2 — Visualizing relationships"
+          - href: labs/lab-06-fitting-multiple-regression.qmd
+            text: "Lab 6 — Fitting multiple regression"
+          - href: labs/lab-10-cross-validation-and-overfitting.qmd
+            text: "Lab 10 — Cross-validation & overfitting"
+          - href: labs/lab-11-logistic-regression-in-r.qmd
+            text: "Lab 11 — Logistic regression in R"
+      - section: "Resources"
+        href: resources/index.qmd
+        contents:
+          - href: resources/index.qmd
+            text: "Resources overview"
+          - href: resources/notation-glossary.qmd
+            text: "Notation glossary"
+          - href: resources/modeling-reference.qmd
+            text: "Modeling reference"
+          - href: resources/r-quarto-setup.qmd
+            text: "R · Quarto setup"
+  page-footer:
+    left: "© 2026 Matt Hester · Statistical Modeling"
+    center: "[Matt Hester · matthewhester.com](https://matthewhester.com/)"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: right
+    anchor-sections: true
+    smooth-scroll: true
+    link-external-newwindow: true
+    fontsize: 1.05em
+    mainfont: "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+    monofont: "JetBrains Mono, Consolas, Menlo, monospace"
+# Math renders as MathML/MathJax (accessible text), never as images (docs/05 P7; docs/08 §4).
+# R is shown as static, non-executed ```r fences in this diagnostic, so render is deterministic and R-free.

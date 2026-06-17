@@ -1,0 +1,221 @@
+---
+title: "R · Quarto setup"
+subtitle: "Getting R, RStudio/Posit Cloud, and Quarto running for the modeling labs"
+page-type: reference
+toc: true
+---
+
+This page gets your tools running so the modeling work has somewhere to live. The tools are not the
+point — the *models* are. R fits a model, checks it, and reports it; Quarto wraps the fit, the
+diagnostics, and your interpretation into a single document that someone else can re-run and trust.
+Everything you install below is **free** and open: there is no paid platform, no access code, no
+Cengage, WebAssign, MyLab, or any other publisher gateway. If a step ever asks you to pay, you have
+wandered off the path described here — stop and come back.
+
+Keep one idea in view as you set up: in this course R and Quarto *support* the statistical idea, they do
+not replace it. A correctly installed toolchain that produces a model you cannot interpret is worth less
+than a pencil sketch you understand. So treat this page as plumbing — get it working once, then spend
+your attention on the modeling.
+
+## What modeling needs from a toolchain
+
+A modeling workflow has three jobs, and the free toolchain maps onto them cleanly:
+
+- **Fit.** R is the language and the engine. `lm()` fits linear models, `glm()` fits logistic and other
+  generalized models, and a handful of packages (the **tidyverse** for data wrangling and plotting)
+  carry the supporting work. R is what actually estimates the `study` slope or the odds ratio.
+- **Edit and run.** **RStudio** (desktop app) or **Posit Cloud** (the same thing in a browser) is the
+  environment you write and run R in. Either is fine; pick by whether you want to install software or
+  not.
+- **Communicate.** **Quarto** turns a plain-text document that mixes prose, R code, and results into a
+  rendered report (HTML, PDF, or Word). A model's credibility lives partly in whether someone else can
+  reproduce it, and Quarto is how you make a model reproducible by default.
+
+You need all three. Below is how to get each — choosing **one** of the two environment paths.
+
+## Step 1 — Install R from CRAN
+
+R itself comes from **CRAN**, the Comprehensive R Archive Network: <https://cran.r-project.org>. This is
+the only authoritative source — do not download R from a mirror you found in a search ad.
+
+- **Windows:** choose *Download R for Windows* → *base* → *Download R x.y.z for Windows*, run the
+  installer, accept the defaults.
+- **macOS:** choose *Download R for macOS*, pick the package matching your chip (Apple silicon vs.
+  Intel), and install.
+- **Skip this entirely if you use Posit Cloud** — the cloud already has R installed for you (see the
+  Posit Cloud branch of Step 2).
+
+R on its own is just an engine; you will rarely open the bare "R" application. You drive it through
+RStudio or Posit Cloud, which is the next step.
+
+## Step 2 — Choose ONE environment: RStudio Desktop or Posit Cloud
+
+These are two doors to the same room. You only need one.
+
+### Option A — RStudio Desktop (install locally)
+
+Download the **free** RStudio Desktop ("Open Source Edition") from
+<https://posit.co/download/rstudio-desktop/>. The page lists the prerequisite — *install R first* — and
+then a single RStudio installer for your operating system. Install R (Step 1) before RStudio so that
+RStudio can find it. Once both are in, open RStudio and you should see a console that prints the R
+version banner on startup; that banner means RStudio found R.
+
+Choose this option if you want your work offline, you have install permissions on your machine, and you
+do not mind a one-time download.
+
+### Option B — Posit Cloud (nothing to install)
+
+Go to <https://posit.cloud>, make a free account, and start a new project. You get RStudio in your
+browser with R already installed — no local setup, works on a locked-down lab machine or a tablet, and
+your files live in the cloud. The free tier is enough for this course's labs.
+
+Choose this option if you cannot or would rather not install software, or if you switch between
+computers. The interface is the same RStudio you would install locally, so every instruction on this
+site applies unchanged.
+
+## Step 3 — Get Quarto (usually already there)
+
+**Recent versions of RStudio bundle Quarto**, so if you installed RStudio in the last year — or you are
+on Posit Cloud — Quarto is almost certainly already present and you can skip ahead. If you need it
+standalone (older RStudio, or you write in another editor), install it from
+<https://quarto.org/docs/get-started/>.
+
+To confirm Quarto is installed and can see R, open RStudio's **Terminal** tab (not the R Console) and
+run:
+
+```r
+# In RStudio's TERMINAL tab (a shell), not the R console:
+quarto check
+```
+
+`quarto check` is the single most useful diagnostic on this page. It inspects the install and reports,
+line by line, whether Quarto can find R, find the R packages it needs to render R code (notably
+`knitr` and `rmarkdown`), and find a LaTeX install if you want PDF output. A clean run ends with
+checkmarks; any line that says a tool is missing tells you exactly what to install next. If it reports
+that R or `knitr` is not found, install the package from the R console with
+`install.packages("rmarkdown")` (which pulls in `knitr`) and re-run `quarto check`.
+
+Making R *discoverable by Quarto* is exactly what `quarto check` verifies, so run it once after setup
+and you will not have to wonder later whether the pieces are talking to each other.
+
+## Step 4 — Your first reproducible modeling report
+
+Now the payoff: a tiny Quarto document that fits a real model from this course and interprets it. Create
+a new file in RStudio (*File → New File → Quarto Document*), or just make a plain-text file ending in
+`.qmd`, and put this inside it:
+
+````markdown
+---
+title: "Study hours and final exam scores"
+author: "Your Name"
+format: html
+---
+
+## The model
+
+We fit a simple linear regression of final exam score on weekly study hours,
+using the course's synthetic `studyhabits` data (seed set; not real students).
+
+```r
+# Reproducible from the top: fix the seed before anything random.
+set.seed(33003)
+
+# Fit the simple linear model: response ~ predictor
+fit <- lm(final ~ study, data = studyhabits)
+summary(fit)
+#> Coefficients:
+#>             Estimate Std. Error t value
+#> (Intercept)   52.000      ...      ...
+#> study          2.500     0.250    10.0
+#> Residual standard error: 9.0 ;  Multiple R-squared: 0.34
+```
+
+## What the slope means
+
+The fitted line is $\hat{y} = 52.0 + 2.5\,x$, where $x$ is weekly study hours.
+The slope $b_1 = 2.5$ says each extra weekly study hour is associated with a
+$2.5$-point higher predicted final, on average. The intercept $b_0 = 52.0$ is the
+predicted final at $0$ study hours — an **extrapolation** beyond the data, so read
+it with caution. With $R^2 = 0.34$, study explains about a third of the variation
+in final scores; the rest is left for other predictors and noise.
+
+```r
+sessionInfo()   # record the exact R + package versions used to produce this report
+```
+````
+
+Read the parts, because each one is doing a job:
+
+- **The YAML header** is the block fenced by `---` at the very top. It holds metadata Quarto uses to
+  build the document: `title`, `author`, and `format: html` (swap to `pdf` or `docx` to change the
+  output). The header is not prose and not code — it is settings, and it must sit at the very top of the
+  file.
+- **The chunk label.** We open the R block with ```` ```r ````. That `r` is the label that marks the
+  fence as R code so it gets syntax-highlighted as R. On a live, executable setup you would instead write
+  an executable cell (a `{r}` chunk) and Quarto would *run* it and splice in the real output. **On this
+  course site we deliberately use the plain ```` ```r ```` fence, which is shown but not executed** — the
+  site renders the code as static, highlighted text and stays R-free, so the page builds identically for
+  everyone. The numbers after `#>` are shown output written by hand, not produced by a run.
+- **`set.seed(33003)`** appears before any computation that could involve randomness. The
+  `studyhabits` data are synthetic with this exact seed; fixing it means anyone who runs the document
+  gets the same data and the same fit. A report whose numbers shift every render is not reproducible.
+- **The interpretation prose** is the actual point. The code produces $b_1 = 2.5$; the sentence after it
+  turns that number into a claim about study and final scores, flags the intercept as extrapolation, and
+  states what $R^2 = 0.34$ does and does not buy you. Numbers without interpretation are not a model
+  report — they are a printout.
+
+When you render this from RStudio (the **Render** button, or `quarto render yourfile.qmd` in the
+terminal), Quarto weaves the header, code, and prose into one HTML page. On a live executable setup the
+R would run; here, because we use plain fences, the code is shown as teaching and the shown output stands
+in for it. Either way the document is one self-contained, re-runnable artifact — which is the whole idea.
+
+## Reproducibility habits worth keeping
+
+These three habits cost nothing and make every model report you produce trustworthy:
+
+- **Set the seed before randomness.** Put `set.seed(33003)` near the top of any analysis that draws
+  random numbers — generating synthetic data, splitting train/test, bootstrapping, cross-validating. The
+  same seed gives the same result, which is the difference between a result and an accident.
+- **End with `sessionInfo()`.** The last code in a report should record the exact R version and the
+  versions of every loaded package. Six months from now, that block is what lets you (or a grader, or a
+  reviewer) reproduce the *same* numbers, because it pins down the software that produced them.
+- **One `.qmd` per analysis, with a descriptive name.** Keep each analysis in its own Quarto file named
+  for what it does — `final-vs-study-slr.qmd`, not `untitled3.qmd`. One question per file keeps the model,
+  its diagnostics, and its interpretation together, and a readable name means you can find the right file
+  without opening five wrong ones.
+
+None of these are R tricks; they are the small disciplines that make a model's *claim* defensible.
+A model you cannot reproduce is a model nobody has to believe.
+
+## AI Use Note
+
+You may use an AI assistant as a setup-and-syntax tutor — to decode an install error, suggest the
+package to install, or explain a render failure. What you may **not** do is let it stand in for the
+statistical judgment, and you must **verify everything it produces**. The verification column below is
+the load-bearing one: an unverified AI suggestion is a guess wearing a lab coat.
+
+| Tool | Purpose | Verification |
+|---|---|---|
+| Chatbot assistant (e.g., an LLM) | Explain a CRAN/RStudio install error or a `quarto check` failure line | Run the suggested fix yourself; re-run `quarto check` and confirm the failing line now passes; never paste a fix you do not understand |
+| AI code helper / IDE autocomplete | Draft the YAML header or a `library()`/`set.seed()` setup block | Read every generated line; confirm the seed is `33003`, the model formula matches your question, and variable names match the data dictionary |
+| AI "explain this output" prompt | Get a second opinion on what `summary(fit)` is reporting | Write your own interpretation of the slope first, then check the AI's against the locked course numbers ($b_1 = 2.5$, $R^2 = 0.34$) and against the notation glossary |
+
+The rule of thumb: AI can speed up *getting the tools working*, but the meaning of a model is the skill
+this course teaches, so keep it in your own hands and check every claim against this site's numbers.
+
+## See also
+
+- [Week 14 — Reproducible modeling reports](../notes/week-14-reproducible-modeling-reports.qmd) — the
+  full treatment of turning a fitted model into a trustworthy, reproducible Quarto report.
+- [Lab 2 — Visualizing relationships](../labs/lab-02-visualizing-relationships.qmd) — your first hands-on
+  R session, where the setup here gets used.
+- [Notation glossary](notation-glossary.qmd) and [Modeling reference](modeling-reference.qmd) — the
+  symbols ($b_0$, $b_1$, $\hat{y}$, $R^2$) and model families you will be fitting.
+
+## Public vs. graded
+
+These notes, the examples, and the practice here are **public and ungraded** — study material only. No
+graded prompts, answer keys, rubrics, point values, or due dates appear on this site. Graded modeling
+checkpoints, labs, quizzes, homework/modeling memos, the midterm, the project, and the final live in
+**Blackboard (the LMS)**, which is authoritative for due dates, submissions, and grades. If this page and
+Blackboard ever disagree, follow Blackboard.

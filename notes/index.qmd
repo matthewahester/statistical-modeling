@@ -1,0 +1,80 @@
+---
+title: "Notes"
+subtitle: "The weekly modeling spine"
+page-type: orientation
+toc: true
+---
+
+The notes are the backbone of the course. There is one note per week, and reading the current week's note
+before class — and again after — is the single most reliable way to keep up. Every note follows the same
+shape, so once you learn to read one, you can read them all.
+
+## How to read a week
+
+Each weekly note is built from the same parts, in the same order. Knowing the anatomy lets you skim for what
+you need and study with intent:
+
+- **The week question.** A single modeling question that the week exists to answer. Hold it in mind as you
+  read; everything else is in service of it.
+- **Concept development.** The core ideas, built up in a few short sections from intuition toward a precise
+  model. This is the part to read slowly.
+- **Worked examples.** Each idea is worked on the recurring **`studyhabits`** teaching dataset (a synthetic
+  campus learning-analytics study) — the model is fit, the output is read, and the result is interpreted in
+  sentences — plus one *transfer* example in a fresh context, so you see the idea move.
+- **A common mistake.** The modeling error students most often make on this topic, named plainly so you can
+  watch for it in your own work.
+- **Ungraded self-checks.** A few low-stakes practice prompts to test yourself. These are *self-check only*
+  — no points, no submission.
+- **Reading pointer.** Where to read more: the relevant *ModernDive* chapter (and, for logistic and
+  generalized models, *Beyond Multiple Linear Regression*), with the reminder that these notes are the
+  course's own synthesis.
+- **Looking ahead.** A sentence or two connecting this week to the next, so the modeling arc stays visible.
+
+Keep the [notation glossary](../resources/notation-glossary.qmd) and the
+[modeling reference](../resources/modeling-reference.qmd) open alongside the notes.
+
+## The five parts
+
+The fifteen weeks fall into five parts. Each part has a job, and the weeks within it build on one another.
+
+**Part I — Framing & data.** What a statistical question is, what a model is for, and how to look at data
+before fitting.
+
+1. [Week 1 — Models, data & statistical questions](week-01-models-data-statistical-questions.qmd)
+2. [Week 2 — Visualization & the modeling workflow](week-02-visualization-and-the-modeling-workflow.qmd)
+
+**Part II — Simple regression.** Fitting, reading, and criticizing a one-predictor regression line.
+
+1. [Week 3 — Simple linear regression](week-03-simple-linear-regression.qmd)
+2. [Week 4 — Interpreting regression output](week-04-interpreting-regression-output.qmd)
+3. [Week 5 — Diagnostics & model adequacy](week-05-diagnostics-and-model-adequacy.qmd)
+
+**Part III — Multiple regression & explanation.** Adding predictors, confronting confounding, comparing
+groups, and letting associations differ across groups.
+
+1. [Week 6 — Multiple regression & adjustment](week-06-multiple-regression-and-adjustment.qmd)
+2. [Week 7 — Confounding & explanation (midterm)](week-07-confounding-explanation-midterm.qmd)
+3. [Week 8 — Categorical predictors & group comparisons](week-08-categorical-predictors-group-comparisons.qmd)
+4. [Week 9 — Interactions & effect modification](week-09-interactions-and-effect-modification.qmd)
+
+**Part IV — Prediction & broader models.** From explanation to prediction, binary outcomes, model
+comparison, and ANOVA as regression.
+
+1. [Week 10 — Prediction & validation](week-10-prediction-and-validation.qmd)
+2. [Week 11 — Logistic regression](week-11-logistic-regression.qmd)
+3. [Week 12 — Model comparison & selection](week-12-model-comparison-and-selection.qmd)
+4. [Week 13 — ANOVA, regression & broader modeling ideas](week-13-anova-regression-broader-modeling.qmd)
+
+**Part V — Reporting & synthesis.** Making the work reproducible and communicable, then pulling the arc
+together.
+
+1. [Week 14 — Reproducible modeling reports](week-14-reproducible-modeling-reports.qmd)
+2. [Week 15 — Final review & synthesis](week-15-final-review-synthesis.qmd)
+
+## Public vs. graded
+
+These notes and the practice in them are **public and ungraded** — study material only. No graded prompts,
+answer keys, rubrics, point values, or due dates appear on this site. Graded modeling checkpoints, labs,
+quizzes, homework and modeling memos, the midterm, the project, and the final live in **Blackboard (the
+LMS)**, which is authoritative for due dates, submissions, and grades. If this page and Blackboard ever
+disagree, follow Blackboard.

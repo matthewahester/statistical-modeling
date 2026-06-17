@@ -1,0 +1,147 @@
+---
+title: "Syllabus (public companion)"
+subtitle: "Orientation and course shape — Blackboard is authoritative for graded specifics"
+toc: true
+---
+
+::: {.callout-important}
+This public page is an **orientation companion** to the syllabus, not the operational syllabus itself. It
+describes the *shape* of the course in qualitative terms. It carries no numeric grade weights, no due dates,
+and no submission rules. For everything that counts toward your grade — exact weights, deadlines, policies,
+and submissions — **Blackboard (the LMS) is authoritative**. If this page and Blackboard ever disagree,
+follow Blackboard.
+:::
+
+## Course description
+
+Statistical Modeling treats modeling as a way to make **careful claims from data**. We develop regression as
+a language for relating variables, comparing groups, quantifying uncertainty, and criticizing our own
+models. Beginning with statistical questions, data structure, and visualization, the course builds through
+simple and multiple regression, adjustment and confounding, categorical predictors, interactions,
+diagnostics, prediction and validation, logistic regression, model comparison, and the link between ANOVA
+and regression — closing with reproducible reporting and synthesis. The emphasis throughout is
+interpretation, communication, and model criticism, with R and Quarto used to fit, check, and communicate
+models.
+
+## Who it is for
+
+This course assumes a prior introductory statistics course or comparable background: you should be
+comfortable with variables, graphs, numerical summaries, sampling variability, confidence intervals,
+hypothesis tests, and basic regression ideas. **Prior R experience is helpful but not required** — the
+modeling workflow is scaffolded for students learning R as part of the modeling process. The main
+expectation is willingness to work carefully through examples, revise code, and explain model output in
+words.
+
+## Learning outcomes
+
+By the end of the course, a successful student will be able to:
+
+- Identify the statistical question, unit of observation, response, explanatory variables, and the
+  comparison a model makes.
+- Use graphs and summaries to prepare for modeling rather than treating a model as a first step.
+- Fit and interpret simple linear regression — slope, intercept, fitted values, residuals, uncertainty, and
+  fit.
+- Fit and interpret multiple regression with numerical and categorical predictors, and explain adjustment
+  and confounding.
+- Use residual plots and other diagnostics to evaluate model adequacy for a purpose.
+- Interpret interaction terms and describe effect modification.
+- Distinguish explanatory from predictive modeling, and use validation to evaluate prediction and detect
+  overfitting.
+- Fit and interpret logistic regression for binary outcomes and read odds ratios.
+- Compare reasonable models without treating automatic selection as a substitute for statistical judgment.
+- Produce a reproducible statistical modeling report and communicate model-based conclusions carefully,
+  including limitations, uncertainty, and possible bias.
+
+## Weekly rhythm
+
+This is a lecture/lab course meeting three days a week, and each day has a settled role:
+
+- **Monday — model concept + interpretation checkpoint.** We introduce a modeling idea, work examples, and
+  close with a short checkpoint focused on interpretation or model reasoning.
+- **Wednesday — modeling lab.** We use R and Quarto to fit models, produce graphics, inspect output, and
+  write short conclusions. These days are hands-on.
+- **Friday — quiz / model critique / workshop.** A short quiz on interpretation or code reading, then a
+  model critique, a comparison of approaches, or project-related work.
+
+This rhythm is the *plan*; the authoritative weekly schedule, including any shifts, lives in Blackboard.
+
+## Assessment shape (indicative — not a contract)
+
+The table below conveys the **relative emphasis** of each graded category in qualitative terms only. It is
+**not** a grading contract: it carries no percentages and no point values, and the actual weights live in
+Blackboard.
+
+| Category | Rough emphasis |
+|----------|----------------|
+| Modeling checkpoints | small |
+| Modeling labs | moderate |
+| Weekly quizzes | small |
+| Homework / modeling memos | the largest single category |
+| Midterm | moderate |
+| Project | moderate |
+| Final | small |
+
+Read this as a picture of *where the weight sits*: regular homework and modeling memos are the backbone of
+the grade, the modeling labs and the two exams carry moderate weight, and the smaller pieces — checkpoints
+and quizzes — add up around them. For the exact weighting, consult Blackboard.
+
+## Software and reproducibility
+
+We use **R** (through RStudio or Posit Cloud) and **Quarto** to fit, check, and report models. Computation
+supports the modeling rather than replacing it: you read, edit, and run code; interpret output; and write
+short written conclusions. Every analysis is written so it can be reproduced — a single Quarto file, a fixed
+random seed, and recorded session information — so the same code yields the same result. Setup instructions
+are on the [R · Quarto setup](resources/r-quarto-setup.qmd) page.
+
+## AI use (summary)
+
+Generative AI tools may be used as a **study and workflow aid** — to explain a concept a second way, help
+debug your own R code, identify possible coding errors, or help you read unfamiliar output. They may **not**
+produce work you submit as your own, write your interpretations, choose your model, or fabricate results,
+and they are **prohibited on quizzes and exams** unless explicitly allowed.
+
+Because this is a modeling course, AI use in code is allowed only when **documented and verified**. Whenever
+you use AI on a graded written assignment, lab, modeling memo, or project component, include a brief **AI Use
+Note** with three labeled lines:
+
+| Field | What to record |
+|-------|----------------|
+| Tool | which assistant you used (with approximate date or version) |
+| Purpose | what you used it for |
+| Verification | how you checked, tested, revised, or validated the output |
+
+**Verification** is the load-bearing line: rerun the code, check the documentation, compare to class
+examples, inspect the residual plots yourself, or rewrite the explanation in your own words after checking
+it. You are responsible for every line of code and every sentence of interpretation you submit. The full
+policy lives in Blackboard.
+
+## Materials
+
+You will need:
+
+- *Statistical Inference via Data Science: A ModernDive into R and the Tidyverse*, 2nd ed. (Ismay, Kim &
+  Valdivia) — the free primary text, **CC BY-NC-SA 4.0**, at
+  [moderndive.com/v2](https://moderndive.com/v2/).
+- *Beyond Multiple Linear Regression* (Roback & Legler) — a free optional supplement, **CC BY-NC-SA 4.0**,
+  at [bookdown.org/roback/bookdown-BeyondMLR](https://bookdown.org/roback/bookdown-BeyondMLR/), used
+  selectively for logistic and generalized models.
+- **R, RStudio or Posit Cloud, and Quarto** — for the modeling labs and reproducible reports.
+- **Blackboard (the LMS)** — for all graded work, dates, and announcements.
+- A **scientific calculator** for in-class quizzes; most computation is done in R.
+
+*Not used in this course:* Cengage, WebAssign, MyLab, or any paid homework platform.
+
+## Where things live
+
+Keep the two homes of the course straight:
+
+- **Blackboard (the LMS)** is the **operational** home: graded modeling checkpoints, labs, quizzes, homework
+  and modeling memos, the midterm, the project, the final, all due dates, all submissions, and all grades.
+  It is authoritative.
+- **This public site** is the **public notes** home: weekly notes, labs as study material, resources, and
+  orientation pages. It is ungraded.
+
+::: {.callout-note}
+This companion exists to orient you. Whenever a graded specific is at stake — a weight, a deadline, a policy
+— go to Blackboard, which is authoritative.
+:::

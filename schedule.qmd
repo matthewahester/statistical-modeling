@@ -1,0 +1,83 @@
+---
+title: "Schedule (topic flow)"
+subtitle: "A 15-week pacing plan — Blackboard is authoritative for dates and deadlines"
+toc: true
+---
+
+::: {.callout-important}
+This is a **pacing plan, not a calendar**. It shows the order in which modeling topics unfold and roughly
+when, so you can read ahead and see where you are headed. It is **not** the authoritative calendar: exact
+dates, deadlines, and any mid-term adjustments live in **Blackboard (the LMS)**, which is authoritative. A
+few fixed semester dates are noted for orientation only — confirm everything against Blackboard.
+:::
+
+The course runs fifteen weeks in five parts. Each part below lists its weeks, the theme for each week, and
+the throughline — the modeling question that carries the week. The **theme** links to that week's note.
+
+## Part I — Framing & data (Weeks 1–2)
+
+We set up the modeling frame: what a statistical question is, what a model is for, and how to look at data
+before fitting anything.
+
+| Week | Theme | The throughline |
+|------|-------|-----------------|
+| 1 | [Models, data & statistical questions](notes/week-01-models-data-statistical-questions.qmd) | What question is a model of `final ~ study` actually trying to answer? |
+| 2 | [Visualization & the modeling workflow](notes/week-02-visualization-and-the-modeling-workflow.qmd) | What does a scatterplot of final score against study hours tell us *before* we model? |
+
+## Part II — Simple regression (Weeks 3–5)
+
+We fit, read, and criticize a one-predictor regression line.
+
+| Week | Theme | The throughline |
+|------|-------|-----------------|
+| 3 | [Simple linear regression](notes/week-03-simple-linear-regression.qmd) | What line best summarizes how `final` changes with `study`, and what does "best" mean? |
+| 4 | [Interpreting regression output](notes/week-04-interpreting-regression-output.qmd) | What do the slope, intercept, $R^2$, residual error, and a confidence interval actually say? |
+| 5 | [Diagnostics & model adequacy](notes/week-05-diagnostics-and-model-adequacy.qmd) | Is this line good *enough* for its purpose — what do the residuals reveal? |
+
+*Note: **Labor Day (Mon, Sep 7)** falls in Week 3 — no class that Monday, so the week runs Wednesday and
+Friday.*
+
+## Part III — Multiple regression & explanation (Weeks 6–9)
+
+We add predictors, confront confounding, compare groups, and let associations differ across groups.
+
+| Week | Theme | The throughline |
+|------|-------|-----------------|
+| 6 | [Multiple regression & adjustment](notes/week-06-multiple-regression-and-adjustment.qmd) | What happens to the `study` effect once we adjust for incoming GPA? |
+| 7 | [Confounding & explanation (midterm)](notes/week-07-confounding-explanation-midterm.qmd) | When is a crude comparison misleading, and what does "explain" mean here? |
+| 8 | [Categorical predictors & group comparisons](notes/week-08-categorical-predictors-group-comparisons.qmd) | How does regression compare the in-person, hybrid, and online sections? |
+| 9 | [Interactions & effect modification](notes/week-09-interactions-and-effect-modification.qmd) | Does studying help working students as much as it helps everyone else? |
+
+*Note: the **midterm is Friday, Oct 9** (in class), during Week 7. No graded content appears on this public
+site — see Blackboard.*
+
+## Part IV — Prediction & broader models (Weeks 10–13)
+
+We turn from explanation to prediction, model binary outcomes, compare models, and connect ANOVA to
+regression.
+
+| Week | Theme | The throughline |
+|------|-------|-----------------|
+| 10 | [Prediction & validation](notes/week-10-prediction-and-validation.qmd) | Why can a model that fits the data better predict *worse* on new students? |
+| 11 | [Logistic regression](notes/week-11-logistic-regression.qmd) | How do we model the *probability* of passing, and what is an odds ratio? |
+| 12 | [Model comparison & selection](notes/week-12-model-comparison-and-selection.qmd) | Which of several reasonable models should we trust, and why not just the biggest? |
+| 13 | [ANOVA, regression & broader modeling ideas](notes/week-13-anova-regression-broader-modeling.qmd) | Why is a one-way ANOVA just a regression with a categorical predictor? |
+
+*Note: **fall break is Nov 22–28** (no classes).*
+
+## Part V — Reporting & synthesis (Weeks 14–15)
+
+We make the work reproducible and communicable, then pull the whole arc together.
+
+| Week | Theme | The throughline |
+|------|-------|-----------------|
+| 14 | [Reproducible modeling reports](notes/week-14-reproducible-modeling-reports.qmd) | How do you turn a fitted model into a report someone else can trust and re-run? |
+| 15 | [Final review & synthesis](notes/week-15-final-review-synthesis.qmd) | How do questions, fitting, criticism, explanation, and prediction fit as one practice? |
+
+*Note: the **last class is Mon, Dec 7**, the **consultation day is Dec 8**, and the **final-exam window is
+Dec 9–15** (exact block via Blackboard).*
+
+::: {.callout-note}
+Again: this page is a pacing plan to help you read ahead. For the real calendar — every date, every
+deadline, and any adjustment during the term — **Blackboard (the LMS) is authoritative**.
+:::
