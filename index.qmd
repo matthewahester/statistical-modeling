@@ -1,10 +1,15 @@
 ---
-title: "Statistical Modeling"
-subtitle: "Regression, prediction, and explanation — careful claims from data"
+pagetitle: "Statistical Modeling"
 toc: false
 ---
 
-![](assets/hero.png){.course-hero-img fig-alt="Course identity hero for Statistical Modeling — a crimson crystalline cube cluster surrounded by regression-modeling graphics including the linear model equation, a residuals-versus-fitted plot, a normal Q-Q plot, a logistic-regression curve, prediction-quality and RMSE panels, and an AIC model-comparison chart, with the course title."}
+![](assets/hero-web.webp){.course-hero-img fig-alt="Course identity hero for Statistical Modeling — a crimson crystalline cube cluster surrounded by regression-modeling graphics including the linear model equation, a residuals-versus-fitted plot, a normal Q-Q plot, a logistic-regression curve, prediction-quality and RMSE panels, and an AIC model-comparison chart, with the course title."}
+
+# Statistical Modeling {.course-landing-title}
+
+::: {.course-landing-subtitle}
+Regression, prediction, and explanation — careful claims from data
+:::
 
 > A model is not just a line on a graph or a formula in a printout. It is a structured argument about how
 > variables are related, what comparison is being made, how much uncertainty remains, and what the data can
