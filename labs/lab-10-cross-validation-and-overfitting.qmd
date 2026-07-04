@@ -224,6 +224,21 @@ results
 #> 2 kitchen-sink (12 pred.)        6.9    11.0          4.1
 ```
 
+![**Your own results tibble: training RMSE vs. cross-validated RMSE.** Grouped bars plot the four
+numbers your `results` tibble just printed: the small model (`final ~ study + prior_gpa`, 2
+predictors) shows `train_rmse` 8.8 next to `cv_rmse` 9.3 — nearly level, `optimism_gap` 0.5. The
+kitchen-sink model (12 predictors) shows a lower `train_rmse` of 6.9 but the tallest bar in the
+chart, `cv_rmse` 11.0 — `optimism_gap` 4.1. The model with the better training bar has the worse
+cross-validated bar. (synthetic; seed set)](../assets/figures/lab10_train_vs_cv_rmse.png){#fig-lab10-train-vs-cv-rmse
+fig-alt="A grouped bar chart with two clusters of two bars each, on a vertical RMSE axis (lower is
+better). Left cluster, the small model (2 predictors): a solid bar at 8.8 labeled train_rmse next
+to a diagonally hatched bar at 9.3 labeled cv_rmse — nearly the same height, annotated 'optimism_gap
+= 0.5.' Right cluster, the kitchen-sink model (12 predictors): a solid train_rmse bar at 6.9, lower
+than the small model's training bar, next to a hatched cv_rmse bar at 11.0, the tallest bar in the
+chart, annotated in a contrasting color 'optimism_gap = 4.1 -- overfitting.' A legend labels the
+solid bars train_rmse and the hatched bars cv_rmse so the two series are never distinguished by
+color alone."}
+
 Here is the verification, stated plainly. The kitchen-sink model fits the training data **better** (6.9 < 8.8
 in training RMSE) yet predicts new students **worse** (11.0 > 9.3 in cross-validated RMSE). Better fit, worse
 prediction: that is overfitting, and it is the single most important sentence in this lab. A lower training

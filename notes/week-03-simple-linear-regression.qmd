@@ -158,6 +158,12 @@ The fitted line is
 
 $$\hat{y} = 52.0 + 2.5\,x, \qquad x = \texttt{study}.$$
 
+![**The fitted line for `final ~ study`, with one student's residual made visible.** The gray
+cloud is the recurring `studyhabits` data (synthetic; seed set, `set.seed(33003)`); the line is
+$\hat{y} = 52.0 + 2.5x$. The triangle marks the fitted value at `study = 10` ($\hat{y} = 77.0$); the
+circle marks a student who actually studied 10 hours and scored 70. The dashed vertical segment
+between them is that student's residual, $e = 70 - 77.0 = -7.0$.](../assets/figures/wk03_fitted_line_studyhabits.png){#fig-wk03-fitted-line-studyhabits fig-alt="A scatterplot of final exam score (vertical axis, 0 to 100) against weekly study hours (horizontal axis, 0 to 20). About 200 gray points form an upward-sloping cloud. A dark diagonal line runs through the cloud, the fitted regression line. At study hours equal to 10, a triangle marker sits on the line at final score about 77, labeled 'y-hat = 77.0 (study = 10).' Directly below it, a filled circle marker sits at final score 70, labeled 'actual: scored 70.' A short dashed vertical segment connects the triangle down to the circle, labeled 'e = 70 - 77.0 = -7.0,' showing the residual gap between the line's prediction and the actual student."}
+
 Read the two numbers carefully, because reading them well is most of the skill.
 
 **The slope $b_1 = 2.5$.** Each additional weekly study hour is associated with a $2.5$-point higher
@@ -195,6 +201,12 @@ carefully is Week 4's job.
 To see that the line and the meaning of "best" travel, picture a fresh, unrelated context: monthly
 apartment `rent` (dollars) regressed on `size` (square feet) for a synthetic set of listings. Fitting
 `lm(rent ~ size, data = listings)` would produce its own least-squares line, say $\hat{y} = 400 + 1.5\,x$.
+
+![**An illustrative transfer line: `rent` regressed on `size`.** This is a purely illustrative
+pattern for a synthetic set of listings — no real listings data — showing the same kind of upward
+cloud with the fitted line $\hat{y} = 400 + 1.5x$ drawn through it, matching the slope and intercept
+named in the prose above.](../assets/figures/wk03_fitted_line_rent_size.png){#fig-wk03-fitted-line-rent-size fig-alt="A scatterplot of monthly rent in dollars (vertical axis, roughly 700 to 3600) against apartment size in square feet (horizontal axis, roughly 300 to 2100). Gray points form a tight upward-sloping cloud. A dark diagonal line labeled 'y-hat = 400 + 1.5x' runs through the middle of the cloud from lower left to upper right, showing the fitted transfer line for this illustrative, synthetic example."}
+
 Here the slope of $1.5$ means each additional square foot is associated with about $\$1.50$ more in
 predicted monthly rent, on average — again a *change per unit*, not a price tag stamped on a single
 apartment. The intercept of $\$400$ is the predicted rent at `size = 0` square feet, which is physically

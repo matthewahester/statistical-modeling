@@ -162,6 +162,16 @@ summary(fit)
 #> formatonline     -7.0     # online  - in_person  (a DIFFERENCE)
 ```
 
+![**The three fitted group means, read from the baseline out.** In-person is the reference level
+(dashed line at $78.0$); the hybrid and online bars sit below it, and the arrows dropping from the
+baseline mark exactly the coefficients the model reported, $-3.0$ and $-7.0$ (synthetic; seed
+set).](../assets/figures/wk08_group_means_studyhabits.png){#fig-wk08-group-means-studyhabits fig-alt="A
+bar chart with three bars labeled in_person (baseline), hybrid, and online, heights 78.0, 75.0, and 71.0
+on a 0-to-90-point scale. A dashed horizontal reference line runs across the chart at the in-person bar's
+height, 78.0. A downward arrow drops from that line to the top of the hybrid bar, labeled -3.0, and a
+longer downward arrow drops from the line to the top of the online bar, labeled -7.0. Each bar also shows
+its own fitted-mean value printed inside it near the top."}
+
 Read this from the anchor outward. The intercept $b_0 = 78.0$ is **not** a generic baseline-at-zero — it
 is the fitted mean final exam score for the in-person sections: in-person students average $78.0$ points.
 That is a mean, because in-person is the baseline.
@@ -214,6 +224,17 @@ summary(fit_stores)
 #> layoutloop        6.0     # loop  - grid  (a DIFFERENCE)
 #> layoutspine      -2.0     # spine - grid  (a DIFFERENCE)
 ```
+
+![**The same anchor-and-arrows reading, transferred to store layouts.** Grid is the reference level
+(dashed line at $40.0$); this time one difference points up (loop, $+6.0$) and one points down (spine,
+$-2.0$) — the same coefficients-as-differences logic, applied to a case where the comparison group can
+land on either side of the baseline (synthetic;
+seed set).](../assets/figures/wk08_group_means_stores_transfer.png){#fig-wk08-group-means-stores-transfer
+fig-alt="A bar chart with three bars labeled grid (baseline), loop, and spine, heights 40.0, 46.0, and
+38.0 on a 0-to-55 scale (predicted weekly sales in thousands of dollars). A dashed horizontal reference
+line runs across the chart at the grid bar's height, 40.0. An upward arrow rises from that line to the
+top of the loop bar, labeled +6.0, and a downward arrow drops from the line to the top of the spine bar,
+labeled -2.0. Each bar also shows its own fitted-mean value printed inside it near the top."}
 
 Read it the same way, anchor first. The intercept $40.0$ is the fitted mean weekly sales for `grid`
 stores: about \$40k per week. The coefficient `layoutloop 6.0` is a difference — loop stores average

@@ -65,7 +65,8 @@ real student data, so every number is a teaching illustration, not an empirical 
 
 We work with the same `studyhabits` data from the rest of the course. The response for a logistic model is
 the logical variable `passed` (defined as `final >= 70`), and the single predictor here is `study`,
-average weekly study hours. Load the data and remind yourself of the two columns you will use. Here the code is **shown, not executed** — read it as the workflow you would run in RStudio or Posit
+average weekly study hours. Load the data and remind yourself of the two columns you will use. In this
+diagnostic the code is **shown, not executed** — read it as the workflow you would run in RStudio or Posit
 Cloud, and treat the commented numbers as the output you would see.
 
 ```r
@@ -196,12 +197,29 @@ grid$phat <- predict(fit, newdata = grid, type = "response")
 range(grid$phat)
 # [1] 0.1192 0.9923    # every predicted probability stays inside [0, 1]
 
-# A quick look at the curve (shown, not executed here):
+# A quick look at the curve (shown, not executed in this diagnostic):
 plot(grid$study, grid$phat, type = "l",
      xlab = "weekly study hours", ylab = "predicted P(pass)",
      main = "Logistic fit: passed ~ study (synthetic; seed set)")
 abline(h = 0.5, lty = 2)   # the 50% line; the curve crosses it near study = 5.7
 ```
+
+Running that call produces the picture below — the same curve the three anchor points from Step 3
+were only samples of.
+
+![**The predicted probability of passing climbs smoothly from about 0.12 to nearly 1, crossing $\hat p = 0.5$
+near `study` $\approx 5.7$.** This is the literal output of the Step 4 `plot()` call: predicted $\hat p$
+against `study`, traced across the lab's own `grid` (`study` from $0$ to $20$ by $0.5$) from the fitted
+model $\operatorname{logit}(\hat p) = -2.0 + 0.35\,\text{study}$. The dashed line marks $\hat p = 0.5$; the
+marked point sits where the curve crosses it, at `study` $\approx 5.7$, matching the algebra worked out in
+Step 3 (synthetic; seed set).](../assets/figures/lab11_logistic_curve.png){#fig-lab11-logistic-curve
+fig-alt="A line plot with weekly study hours from 0 to 20 on the horizontal axis and predicted probability
+of passing from about 0.1 to 1.0 on the vertical axis. A solid rust-colored S-shaped curve starts low, near
+0.12, at study = 0, rises gradually at first, climbs through its steepest stretch through the middle of the
+range, and flattens as it approaches but does not reach 1 by study = 20. A dashed blue horizontal line
+marks predicted probability 0.5, and a filled square marker sits on the curve where it crosses that line,
+labeled 'study approximately 5.7, p-hat = 0.50.' No other markers or legend appear on the figure — it
+matches exactly the plot() and abline() calls shown in the code block just above it."}
 
 **Interpreted plainly:** across the entire range of study hours the predicted probability climbs
 smoothly from about 0.12 up toward 1 but never reaches or exceeds it — the curve flattens as it

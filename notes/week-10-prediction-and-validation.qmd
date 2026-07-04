@@ -182,6 +182,23 @@ rmse <- sqrt(mean((test$final - pred)^2))
 #> m_big    (12-predictor kitchen-sink):   CV-RMSE ≈ 11.0
 ```
 
+Putting the training and cross-validated numbers for both models side by side makes the inversion easy to
+see at a glance:
+
+![**Training RMSE understates error; cross-validated RMSE reveals overfitting.** Grouped bars compare
+training RMSE against 10-fold cross-validated RMSE for the 2-predictor model (`final ~ study + prior_gpa`)
+and the 12-predictor kitchen-sink model. The 2-predictor model's bars are nearly level (8.8 vs. 9.3 — a small
+optimism gap); the kitchen-sink model's training bar is lower (6.9) but its cross-validated bar is the
+tallest of the four (11.0) — a large optimism gap that flags overfitting. (synthetic; seed
+set)](../assets/figures/wk10_train_vs_cv_rmse.png){#fig-wk10-train-vs-cv-rmse fig-alt="A grouped bar chart
+with two clusters of two bars each, plotted on a vertical RMSE axis where lower is better. Left cluster,
+the 2-predictor model: a solid bar at 8.8 (training RMSE) next to a hatched bar at 9.3 (10-fold
+cross-validated RMSE) — nearly the same height, labeled 'small optimism gap.' Right cluster, the
+12-predictor kitchen-sink model: a solid bar at 6.9 (training RMSE), lower than the small model's training
+bar, next to a hatched bar at 11.0 (cross-validated RMSE), the tallest bar in the chart, labeled 'large
+optimism gap -- overfitting.' A legend distinguishes the solid training bars from the diagonally hatched
+cross-validated bars so the two series do not rely on color alone."}
+
 Read these against the training numbers and the whole story inverts. The two-predictor model trained at
 $\mathrm{RMSE} = 8.8$ and *validates* at $\approx 9.3$ — an optimism gap of only about half a point. That
 small gap is reassuring: almost everything `m_small` learned on the training rows carries over to new

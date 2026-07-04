@@ -181,6 +181,20 @@ coef(adjusted)
 #> Adjusted model R^2 = 0.51
 ```
 
+![**`prior_gpa` sits upstream of both `study` and `final`, so it confounds the crude comparison.**
+The diagram shows the hypothesized structure: `prior_gpa` is associated with `study` and with
+`final`, and `study` is associated with `final`. The number on the `study -> final` arrow depends on
+whether `prior_gpa` is held constant — crude (ignoring `prior_gpa`) it is $2.5$; adjusted (holding
+`prior_gpa` constant) it is $1.8$. The $0.7$-point gap is the portion of the crude slope that was
+really `prior_gpa`'s effect riding along with `study` (synthetic; seed
+set).](../assets/figures/wk07_confound_dag_studyhabits.png){#fig-confound-dag-studyhabits
+fig-alt="A three-box diagram. A top box labeled prior_gpa (incoming GPA) has two black arrows
+pointing down, one to a bottom-left box labeled study (weekly study hours) and one to a bottom-right
+box labeled final (exam score), each arrow labeled 'associated with'. A horizontal rust-colored arrow
+runs from the study box to the final box. Above that arrow, in rust text, is 'crude slope = 2.5'; below
+it, in blue text, is 'adjusted slope = 1.8 (holding prior_gpa constant)'. A small italic note at the top
+reads 'hypothesized structure for teaching; arrows are not a causal estimate.'"}
+
 Read the comparison carefully. The crude slope is $2.5$: ignoring everything else, each extra weekly
 study hour goes with a $2.5$-point higher predicted final, on average. The adjusted slope is $1.8$: among
 students with the *same* incoming GPA, each extra study hour goes with a $1.8$-point higher predicted
@@ -217,6 +231,21 @@ crude_ice <- lm(drownings ~ ice_cream_sales, data = city_days)
 adjusted_ice <- lm(drownings ~ ice_cream_sales + temperature, data = city_days)
 #> ice_cream_sales slope shrinks toward 0 once temperature is held constant
 ```
+
+![**Same triangle, new labels: `temperature` confounds `ice_cream_sales -> drownings`, and there is no
+direct arrow between them.** This is the identical structural pattern as the `studyhabits` diagram above —
+a variable upstream of both the predictor and the response — just with `temperature` in the role
+`prior_gpa` played. Because the entire crude association here is confounding, the diagram deliberately
+omits a solid `ice_cream_sales -> drownings` arrow (illustrative pattern consistent with the note's own
+description, not an exact locked
+number).](../assets/figures/wk07_confound_dag_icecream_transfer.png){#fig-confound-dag-icecream-transfer
+fig-alt="A three-box diagram matching the earlier prior_gpa figure's layout. A top box labeled
+temperature has two black arrows pointing down, one to a bottom-left box labeled ice_cream_sales and one
+to a bottom-right box labeled drownings, each arrow labeled 'associated with'. Between the two bottom
+boxes there is only a dashed gray horizontal line with an X mark and the italic label 'no direct arrow' —
+no solid causal arrow connects ice_cream_sales to drownings. Above the dashed line, in rust text, is
+'crude slope > 0 (confounded)'; below it, in blue text, is 'adjusted slope ~ 0 (holding temperature
+constant)'."}
 
 The confounder is `temperature`. Hot days drive ice-cream sales up *and* drive more people to swim,
 which raises drownings — `temperature` meets both conditions of a confounder. The crude

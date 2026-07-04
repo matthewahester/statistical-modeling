@@ -13,7 +13,7 @@ is shown per family so you can connect the math to the call.
 
 All numbers below come from the recurring `studyhabits` teaching dataset — **synthetic; seed set**
 (`set.seed(33003)`, $n = 200$ students in one intro course). They are fitted "as if fit" for teaching and
-are **not verified** (the course's math gate is open by design in this build). They stand in for a campus
+are **illustrative, not independently verified**. They stand in for a campus
 learning-analytics study, not real students. Use them to learn the *reading*, not as findings.
 
 Keep the [notation glossary](notation-glossary.qmd) open alongside this page — every symbol here is defined

@@ -151,6 +151,21 @@ ways the number does not advertise. You **interpret** the result in the language
 step — is what produces confident answers to questions nobody actually posed. We spend Week 1 entirely
 inside the first arrow.
 
+The picture below makes the point the arrows-in-a-line notation above can only hint at: this workflow is a
+loop, not a finish line. A communicated result routinely raises the next question, which starts the whole
+chain over again.
+
+![**The modeling workflow is a cycle, not a one-way line.** Six boxes — ask, look, fit, check, interpret,
+communicate — connected left to right by arrows, with a looping arrow returning from communicate back to
+ask. No data or fitted numbers appear here; Week 1 deliberately fits nothing, so this is a pure map of the
+process itself, to be filled in with real machinery week by week.](../assets/figures/wk01_modeling_cycle.png){#fig-wk01-modeling-cycle fig-alt="A flow diagram of six labeled boxes in a horizontal row, connected by
+rightward arrows, reading in order: ask, look, fit, check, interpret, communicate. Each box has a short
+caption underneath naming when that step is developed in the course (for example 'state the question,
+Week 1' under ask, and 'fit the model, Weeks 3-13' under fit). A curved arrow arcs above the entire row,
+starting at the right edge of the communicate box and looping back down into the top of the ask box, with
+a label reading 'the cycle repeats -- a communicated result often raises the next question.' No numbers,
+data points, or axes appear in the figure."}
+
 ## Worked examples
 
 ### Worked example — the `studyhabits` study: stating the question

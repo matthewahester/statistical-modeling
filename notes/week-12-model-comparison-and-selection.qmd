@@ -194,6 +194,22 @@ summary(m3)$adj.r.squared
 #> adjusted R^2:   M1 = 0.337   M2 = 0.505   M3 = 0.539
 ```
 
+![**Adjusted $R^2$ charges rent: M3's raw lead over M2 mostly evaporates once paid.** Solid bars show
+adjusted $R^2$ for M1 ($0.337$), M2 ($0.505$), and M3 ($0.539$); the thin translucent ghost bar behind
+each one marks the raw $R^2$ it gives up (M1 $0.34$, M2 $0.51$, M3 $0.55$). M2 is starred as the
+parsimony sweet spot: it captures nearly all the adjusted gain, while M3's extra raw-$R^2$ edge over M2
+(0.55 vs. 0.51) shrinks once each model is charged for the predictors it spent (0.539 vs. 0.505)
+(synthetic; seed set; `studyhabits`).](../assets/figures/wk12_model_comparison_studyhabits.png){#fig-wk12-model-comparison
+fig-alt="A bar chart with three categories on the x-axis: M1 (final tilde study), M2 (plus prior_gpa),
+and M3 (plus attend, format, works). The y-axis is R-squared from 0 to about 0.7. Each category has a
+solid main bar showing adjusted R-squared and, behind it, a thinner, lighter gray ghost bar reaching
+slightly higher to the raw R-squared value. M1's solid bar reaches 0.337 with a raw ghost bar at 0.34.
+M2's solid bar, filled in a rust/orange accent color and marked with a black star above it labeled
+'parsimony sweet spot,' reaches 0.505 with a raw ghost bar at 0.51. M3's solid bar reaches 0.539 with a
+raw ghost bar at 0.55. The gap between ghost-bar top and solid-bar top is small for all three bars but
+is visibly largest for M3, showing that M3 pays the biggest adjustment penalty of the three for its
+extra predictors, so most of its raw-R-squared edge over M2 is gone by the time both are adjusted."}
+
 Now the story changes shape. Going from M1 to M2, adjusted $R^2$ leaps from $0.337$ to $0.505$ — a gain of
 about $0.17$. That is enormous: adding `prior_gpa` to `study` buys a large, real improvement that easily
 survives the complexity penalty. The predictor is pulling its weight, and the fair scorecard says so. Going
@@ -248,6 +264,21 @@ AIC(d1, d2, d3, d8)
 #> cubic        (d3):   AIC barely better  — the cubic term adds little
 #> degree 8     (d8):   AIC worse again    — fitting wiggles that aren't there
 ```
+
+![**A shallow U: AIC drops sharply at the quadratic, barely moves at the cubic, then rises again by
+degree eight.** Illustrative AIC pattern consistent with the note's description (no exact fitted numbers
+are given for this transfer example — these values are chosen only to match the qualitative shape). AIC
+is high for the straight line (d1), drops sharply for the quadratic (d2, starred as the parsimony sweet
+spot), barely improves for the cubic (d3), and rises again for the degree-eight fit (d8), which chases
+noise rather than signal.](../assets/figures/wk12_aic_polynomial_transfer.png){#fig-wk12-aic-polynomial
+fig-alt="A line plot with polynomial degree on the x-axis (four points labeled d1 linear, d2 quadratic,
+d3 cubic, d8 degree 8) and illustrative AIC on the y-axis, where lower is better, ranging from about 455
+to 560. A dark blue line connects four points: d1 is high at 540 with a note reading 'under-fits: misses
+the curve'; the line drops sharply to d2 at 480, marked with a black star and the label 'parsimony sweet
+spot'; it barely changes to d3 at 477, with a note reading 'barely improves on d2'; then it rises again
+to d8 at 496, with the segment from d3 to d8 drawn as a dashed rust-colored line and labeled 'worse again
+— overfitting.' The overall shape is a shallow U with its lowest, flattest region at d2 and d3 and the
+practical minimum treated as d2."}
 
 The shape of this AIC table is the lesson of the week made geometric. The straight line under-fits — it can't
 bend to follow the curve, so its AIC is high. The quadratic captures the real curvature and AIC drops sharply,

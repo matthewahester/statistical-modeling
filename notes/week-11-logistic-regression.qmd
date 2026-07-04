@@ -194,6 +194,24 @@ exp(coef(fit))
 #>        0.14        1.42     # OR = 1.42 per extra study hour
 ```
 
+Picture the fitted model before working through the numbers by hand — it is the S-curve below.
+
+![**The predicted probability of passing traces an S-curve, never leaving the legal range $[0,1]$.**
+Predicted probability of passing against weekly study hours from the fitted model
+$\operatorname{logit}(\hat p) = -2.0 + 0.35\,\text{study}$ (`studyhabits`; synthetic, seed set). The curve
+starts near $\hat p \approx 0.12$ at `study` $=0$ (circle marker), crosses $\hat p = 0.5$ near `study`
+$\approx 5.7$ (square marker, dashed guide lines), and reaches $\hat p \approx 0.82$ at `study` $=10$
+(triangle marker). Dotted horizontal guides at $p=0$ and $p=1$ show the curve approaching but never
+touching either boundary.](../assets/figures/wk11_logistic_curve.png){#fig-wk11-logistic-curve
+fig-alt="An S-shaped logistic curve. The horizontal axis is weekly study hours from 0 to 20; the vertical
+axis is predicted probability of passing from 0.0 to 1.0. A solid rust-colored curve starts low, near 0.12
+at study = 0 (marked with a circle), rises gradually at first, climbs most steeply through the middle of
+the range, and flattens as it approaches but never touches 1 by study = 20. A dashed blue guide line marks
+the point where the curve crosses probability 0.5, at study approximately 5.7 (marked with a square). A
+second marker (triangle) sits on the curve at study = 10, where the predicted probability is about 0.82.
+Thin dotted horizontal lines at probability 0 and probability 1 emphasize that the curve stays strictly
+between them across the whole range shown."}
+
 The fitted model, on the log-odds scale, is
 
 $$

@@ -158,6 +158,31 @@ summary(fit2)
 #> Multiple R-squared: 0.51
 ```
 
+The picture below makes the adjustment visible. Every point is one of the $200$ synthetic students, shaped
+and colored by which `prior_gpa` tertile they fall in (low / mid / high). The single gray line is the crude
+comparison — the Week 3–5 line, $\hat y = 52.0 + 2.5x$, drawn across the whole class regardless of GPA. The
+three shorter, flatter lines are the adjusted comparison in picture form: each one uses the fitted plane's own
+slope, $1.8$, but plugs in that tertile's own average `prior_gpa` for the intercept, so it traces the predicted
+`final`-vs-`study` relationship *among students who share roughly the same incoming GPA*. Read within one
+tertile at a time and the association looks visibly gentler than the steep gray line suggests — exactly the
+crude-to-adjusted flattening the coefficients describe.
+
+![**Why "holding `prior_gpa` constant" flattens the study slope.** Synthetic `studyhabits` scatter of `final`
+vs. `study` ($n = 200$; seed set), shaped and colored by `prior_gpa` tertile (triangle = low, circle = mid,
+square = high). The single gray line is the crude comparison across everyone, $\hat y = 52.0 + 2.5x$ (Weeks
+3–5). The three shorter tertile-colored lines share the adjusted slope $1.8$ but use each tertile's own mean
+`prior_gpa` for the intercept ($35.0 + 8.0 \times \overline{\text{prior\_gpa}}_{\text{tertile}}$) — within any
+one tertile, the study–final association is visibly flatter than the crude line. The point cloud itself is an
+illustrative synthetic construction consistent with the locked coefficients, not raw data (synthetic; seed
+set).](../assets/figures/wk06_adjustment_studyhabits.png){#fig-wk06-adjustment-studyhabits fig-alt="A scatterplot
+with study hours (0-20) on the x-axis and final exam score (20-100) on the y-axis. About 200 points are shown
+as triangles, circles, and squares for low, mid, and high prior-GPA tertiles respectively, colored blue, rust,
+and black in that order. A single thick gray line rises steeply across the whole plot from about (0, 52) to
+(20, 102), labeled 'crude line, all students: slope 2.5.' Three shorter, flatter lines, one per tertile color,
+run only across each tertile's own range of study hours and rise much more gently, labeled 'within each
+tertile, slope only 1.8 (flatter).' The high-GPA tertile's points and line sit highest on the plot, the
+low-GPA tertile's points and line sit lowest, with the mid-GPA tertile between them."}
+
 The fitted plane is
 
 $$\hat{y} = 35.0 + 1.8\,x_1 + 8.0\,x_2, \qquad x_1 = \texttt{study},\ x_2 = \texttt{prior\_gpa}.$$
@@ -204,6 +229,25 @@ summary(fit_rent)
 #> Coefficients: (illustrative — the size coefficient changes once distance is in the model)
 #> the size slope shifts after adjusting for distance_to_campus
 ```
+
+The diagram below draws the structure that makes this happen — the same shape as the `studyhabits` story,
+just with new variable names. `distance_to_campus` sits upstream of *both* `size` and `rent`: it is a common
+cause, so it can create an association between `size` and `rent` even before accounting for whatever direct
+relationship those two have with each other.
+
+![**The confounding triangle behind the rent example (structural, no numbers).** `distance_to_campus` points
+into both `size` and `rent` — it shapes how big a typical unit is at that distance and what rent that distance
+commands — while `size` also points directly into `rent`. Because `distance_to_campus` is a common cause of
+the predictor (`size`) and the response (`rent`), the crude `size` slope mixes "bigger costs more" with
+"the big ones happen to sit farther out, where rent is cheaper anyway"; adjusting for `distance_to_campus`
+isolates the direct `size` \(\to\) `rent`
+arrow.](../assets/figures/wk06_confound_diagram_rent_transfer.png){#fig-wk06-confound-diagram-rent-transfer
+fig-alt="A box-and-arrow diagram with three labeled boxes. One box, 'distance_to_campus (miles),' sits at the
+top center. Two boxes sit at the bottom, 'size (square feet)' at bottom left and 'rent (dollars per month)' at
+bottom right. Two diagonal arrows point down from the distance_to_campus box: one to the size box, labeled
+'distance shapes how big a unit is,' and one to the rent box, labeled 'distance shapes what rent costs.' A
+third arrow points horizontally from the size box to the rent box, labeled 'size also shapes rent, directly.'
+No numeric values appear anywhere in the diagram."}
 
 When `distance_to_campus` enters the model, the size coefficient changes, because part of what looked like a
 size effect was really a location effect: the bigger units were discounted for being far out. The adjusted

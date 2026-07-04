@@ -195,6 +195,22 @@ confint(fit)
 #> study         2.00    3.00
 ```
 
+![**The fitted line `final = 52.0 + 2.5 * study`, with a shaded 95% confidence band for the mean
+response.** The band is narrowest near the middle of the observed study-hours range and widens toward the
+edges — the model is most certain about the average final score near a typical study load, and least
+certain at the extremes. The hatched strip below `study = 2` marks the near-zero-hours region where the
+dataset has essentially no observations, so the dashed segment of the line back to the intercept is
+extrapolation, not a supported prediction. Annotated: slope $b_1 = 2.5$, $\mathrm{SE}(b_1) = 0.25$, 95% CI
+for the slope $(2.0,\ 3.0)$, $R^2 = 0.34$, $s = 9.0$ (synthetic; seed set; band shape illustrative — see
+figure source for the derivation of the plotted band width from these same locked
+numbers).](../assets/figures/wk04_ci_band_studyhabits.png){#fig-wk04-ci-band-studyhabits fig-alt="A
+scatterplot of final exam score (y-axis, roughly 40 to 120) against weekly study hours (x-axis, 0 to 18).
+A dark upward-sloping fitted line runs through a cloud of blue points; the line is dashed and sits inside
+a diagonally hatched gray rectangle for study hours 0 to 2 (labeled 'extrapolation, no data here'), and
+solid elsewhere. A tan shaded band surrounds the line, pinched narrowest near study = 10 (marked by a
+dotted vertical reference line) and widening toward both ends of the line. Text on the plot reads: b1 =
+2.5, SE(b1) = 0.25, 95% CI for slope (2.0, 3.0), R^2 = 0.34, s = 9.0."}
+
 Now translate every number into a sentence.
 
 - **Slope estimate $b_1 = 2.5$:** each additional weekly study hour is associated with a $2.5$-point higher
@@ -236,6 +252,21 @@ summary(fit_rent)
 #> Residual standard error: 140 on 248 degrees of freedom
 #> Multiple R-squared:  0.21,  Adjusted R-squared:  0.207
 ```
+
+![**The transfer fitted line `rent = 480 + 120 * size`, drawn as a deliberate matched pair with the
+`studyhabits` figure above.** Same figure grammar — a fitted line, a shaded 95% confidence band for the
+mean response, illustrative scatter — but visibly looser: the band is proportionally wider and the points
+scatter farther from the line, reflecting the smaller $R^2 = 0.21$ and the larger residual standard error
+$s = 140$ (against $R^2 = 0.34$ and $s = 9.0$ for `final ~ study`). Annotated: intercept $b_0 = 480$, slope
+$b_1 = 120$, $s = 140$, $R^2 = 0.21$ (synthetic; seed set; band shape illustrative — see figure source for
+the derivation of the plotted band width from these same page
+numbers).](../assets/figures/wk04_ci_band_rent_size.png){#fig-wk04-ci-band-rent-size fig-alt="A
+scatterplot of monthly rent in dollars (y-axis, roughly 700 to 2,600) against apartment size in hundreds
+of square feet (x-axis, 4 to 16). A dark upward-sloping fitted line runs through a loosely scattered cloud
+of blue points. A tan shaded confidence band surrounds the line, pinched narrowest near size = 10 (marked
+by a dotted vertical reference line) and widening noticeably toward both ends -- visibly wider, relative to
+the line's rise, than the matched studyhabits figure above. Text on the plot reads: b0 = 480, b1 = 120, s
+= 140, R^2 = 0.21, with a note comparing it to final ~ study's R^2 = 0.34 and s = 9.0 as the tighter fit."}
 
 Reading this output by the same four instruments:
 

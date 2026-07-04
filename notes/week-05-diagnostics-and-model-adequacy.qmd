@@ -199,8 +199,23 @@ plot(fit, which = 1)                   # residual-vs-fitted: the key diagnostic
 #> draws e (vertical) against yhat (horizontal), with a smoother through the cloud
 ```
 
-**Reading the residual-vs-fitted plot (described in prose; the figure is planned in the visual plan,
-and R here is shown, not executed).** With these locked numbers, the picture you should expect for
+Here is what that residual-vs-fitted plot looks like for this fit.
+
+![**Residual-vs-fitted plot for `final ~ study` (synthetic; seed set, `set.seed(33003)`).** The
+horizontal dashed line marks zero residual; points scatter in a roughly even band above and below it,
+with no curvature and no funnel. The highlighted point — the student who studied 10 hours and scored
+70 — has fitted value $77.0$ and residual $-7.0$, an ordinary miss well inside the scatter given $s =
+9.0$.](../assets/figures/wk05_residual_good_studyhabits.png){#fig-wk05-residual-good fig-alt="A
+scatterplot with fitted final-exam values on the horizontal axis, ranging from about 55 to 100, and
+residuals on the vertical axis, ranging from about negative 20 to positive 30. A dashed horizontal
+reference line runs across the plot at residual zero. Roughly two hundred points form an even,
+featureless horizontal band scattered above and below the line across the whole range of fitted
+values, with no visible curve and no narrowing or widening of the spread from left to right. One point
+is marked with a solid triangle and a text label reading 'study = 10, final = 70, fitted = 77.0, e =
+-7.0'; it sits at fitted value about 77 and residual about negative 7, a typical distance below the
+zero line, not an outlier."}
+
+**Reading the residual-vs-fitted plot.** With these locked numbers, the picture you should expect for
 `final ~ study` is the *good* case: a roughly horizontal, shapeless band of points scattered above and
 below the zero line, fairly even in width from the low fitted values (around $\hat{y}\approx 60$ for
 light studiers) to the high ones (around $\hat{y}\approx 90$ for heavy studiers). Our example student at
@@ -238,6 +253,23 @@ util_fit <- lm(bill ~ temp, data = utility)   # utility: synthetic; seed set
 plot(util_fit, which = 1)                      # residual-vs-fitted diagnostic
 #> residuals form a clear U-shape: positive at low and high temps, negative in the middle
 ```
+
+Here is that residual-vs-fitted plot, set beside the featureless band from the `studyhabits` example
+so the contrast is visible at a glance.
+
+![**Residual-vs-fitted plot for `bill ~ temp` (illustrative transfer example; synthetic, qualitative
+pattern only — no locked fit exists for this dataset).** Unlike the `studyhabits` band
+above, this cloud traces a pronounced U: residuals sit above the zero line at the lowest and highest
+fitted bills, and below it in the middle, exactly the "smile" the surrounding prose
+describes.](../assets/figures/wk05_residual_bad_utility_transfer.png){#fig-wk05-residual-bad
+fig-alt="A scatterplot with fitted monthly-bill values on the horizontal axis and residuals on the
+vertical axis. A dashed horizontal reference line runs across the plot at residual zero. The points
+trace a clear U-shaped curve: residuals are positive and the cloud sits well above the zero line at
+the lowest fitted values (cool-weather predictions), dip below the zero line and reach their lowest
+point in the middle fitted-value range (mild-weather predictions), then rise back above the zero line
+at the highest fitted values (hot-weather predictions). A solid curved line drawn through the cloud
+makes the U shape explicit, contrasting with the flat, featureless band shown in the earlier
+`studyhabits` figure."}
 
 The residual-vs-fitted plot shows a pronounced **U** (a "smile"): bills are *higher than the line
 predicts* at both cool and hot temperatures, and *lower than predicted* in mild weather. That curve is

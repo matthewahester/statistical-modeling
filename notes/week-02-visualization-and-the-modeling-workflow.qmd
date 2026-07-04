@@ -165,6 +165,20 @@ cor(studyhabits$study, studyhabits$final)
 #> [1] 0.58      # r = 0.58: positive, moderately strong, roughly linear
 ```
 
+![**The `final`-vs-`study` cloud, read before any model is fit.** Each point is one of the 200
+students in the synthetic `studyhabits` data; no regression line is drawn on purpose, because this
+week's discipline is to read the cloud by eye first. The points drift upward from lower-left to
+upper-right (positive direction), hug a single roughly straight band without an obvious bend
+(linear form), and show real but moderate scatter around that band (strength) — a visual pattern
+consistent with the correlation you just computed, $r = 0.58$ (synthetic; seed set). No single
+point sits far enough from the crowd to dominate the
+picture.](../assets/figures/wk02_scatter_final_study.png){#fig-wk02-scatter-final-study
+fig-alt="A scatterplot with average weekly study hours (0 to 20) on the horizontal axis and final
+exam score (0 to 100) on the vertical axis. About 200 semi-transparent rust-colored points form a
+cloud that drifts upward from around (4, 55) to (17, 97), tightly enough to show a clear positive
+trend but with visible scatter around it. No line is drawn through the points. A small italic note
+in the upper left reads 'n = 200 (synthetic; seed set); no line fit yet -- look only.'"}
+
 Read the cloud the way the section above describes, in four passes. **Form:** the points are organized around
 a single straight band — no obvious bend — so a straight-line model is a defensible premise. **Direction:**
 the band tilts up to the right; students who study more tend to score higher, a positive association.
@@ -206,6 +220,23 @@ aggregate(final ~ format, data = studyhabits, FUN = mean)
 #> 2    hybrid  75
 #> 3    online  71    # lowest
 ```
+
+![**Boxplot of `final` by section `format`, with the locked group means marked.** Each box
+summarizes one format's distribution of final exam scores; the boxes step downward from
+`in_person` to `hybrid` to `online`, matching the group means $78$, $75$, and $71$ (synthetic;
+seed set) marked here as blue diamonds so the mean is visible independent of the box's median
+line. The ordering repeats the four-pass discipline from the scatter above, just applied to a
+categorical predictor: read center (the diamonds and the median lines agree closely here), spread
+(the three boxes are comparably tall), and unusual points (one low outlier appears below the
+`online` whisker) before any model is
+fit.](../assets/figures/wk02_boxplot_format.png){#fig-wk02-boxplot-format fig-alt="A boxplot with
+three boxes labeled in_person, hybrid, and online along the horizontal axis and final exam score
+(0 to 100) on the vertical axis. The boxes step downward left to right: in_person is highest
+(median near 78, box roughly 72-84), hybrid is in the middle (median near 75, box roughly 68-81),
+and online is lowest (median near 71, box roughly 66-76, with one open-circle outlier point near
+51 below its whisker). A blue diamond marker on each box shows the group's locked mean -- 78, 75,
+and 71 respectively -- with the number printed beside each diamond. A legend in the upper right
+distinguishes the box (distribution) from the diamond (group mean)."}
 
 Read the boxes the way you read the cloud, adapted to groups. **Center:** the boxes step downward from
 `in_person` to `hybrid` to `online`, and the group means — $78$, $75$, and $71$ — confirm that ordering. A

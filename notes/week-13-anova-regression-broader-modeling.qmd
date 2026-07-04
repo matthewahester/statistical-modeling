@@ -217,6 +217,26 @@ summary(fit_lm)
 #> F-statistic: 12.0 on 2 and 197 DF   # SAME overall F as the ANOVA above
 ```
 
+The figure below shows the split directly, at the level of individual students rather than just table
+entries: each point is one synthetic student, each format's fitted mean is a diamond, and the dashed
+line marks the grand mean across all 200 students.
+
+![**Between-group spread and within-group scatter, side by side.** Each point is one synthetic
+`studyhabits` student's `final` score, jittered within its `format` column (`in_person`, `hybrid`,
+`online`). Each format's fitted mean — $78.0$, $75.0$, and $71.0$ — is marked with a diamond, and the
+dashed line marks the grand mean, $74.7$, across all $200$ students. The dotted segment from the dashed
+line up or down to each diamond is the between-group piece of the split ($\mathrm{SS}_{\text{model}}$);
+the vertical scatter of the circles around their own diamond is the within-group piece
+($\mathrm{SS}_{\text{error}}$) (synthetic; seed set; illustrative per-student scatter around the locked
+group means).](../assets/figures/wk13_anova_partition_studyhabits.png){#fig-anova-partition-studyhabits
+fig-alt="A jittered dot plot with format (in_person, hybrid, online) on the x-axis and final exam score,
+30 to 105, on the y-axis. Roughly 200 small gray circles are scattered in three columns, one per format,
+each column showing a fairly wide vertical spread from about 55 to 100. A dashed rust horizontal line
+crosses the whole plot at 74.7, the grand mean. A larger rust diamond marks each column's fitted mean:
+78.0 for in_person, sitting above the dashed line; 75.0 for hybrid, just above the line; and 71.0 for
+online, below the line. A short dotted blue vertical segment connects the dashed line to each diamond,
+visually showing how far each group's mean sits from the grand mean."}
+
 Read the two outputs as one model. The regression's coefficients rebuild the group means exactly: the
 intercept $78.0$ is the in-person mean, $78.0 + (-3.0) = 75.0$ is the hybrid mean, and $78.0 + (-7.0) =
 71.0$ is the online mean — the same $78 / 75 / 71$ the ANOVA fits as its three group predictions. Because
@@ -261,6 +281,21 @@ summary(fit_t)
 #> # equivalently: t.test(order_value ~ layout, var.equal = TRUE)
 #> # gives the SAME mean difference and the same p-value
 ```
+
+The bar chart below makes the same reading concrete: layout `B`'s fitted mean sits \$5.0 above layout
+`A`'s baseline — the same $5.0$ difference the regression's `layoutB` coefficient reports.
+
+![**Layout B's fitted mean sits \$5.0 above layout A's baseline — the coefficient the regression
+reports.** Predicted `order_value` for layout `A` (baseline, \$40.0) and layout `B` (\$45.0), with
+the dashed line marking the layout-A baseline and the arrow marking the $+5.0$ difference `layoutB`
+reports in the regression table above — the same difference a two-sample $t$-test would report as the
+gap between the two group means (synthetic checkout A/B test; seed set; transfer
+example).](../assets/figures/wk13_two_group_checkout_transfer.png){#fig-two-group-checkout-transfer
+fig-alt="A two-bar chart with layout on the x-axis and predicted order value in dollars, 0 to 55, on the
+y-axis. The left bar, labeled A (baseline), reaches $40.0 and is shaded blue-gray. The right bar,
+labeled B, reaches $45.0 and is shaded rust-tan. A dashed rust horizontal line at $40.0 marks the
+layout-A baseline, running under the top of the B bar. A blue upward arrow inside the B bar, labeled
++5.0, marks the gap between the baseline line and the B bar's top."}
 
 Read it from the anchor, just as in Week 8. The intercept $40.0$ is the mean order value under layout `A`:
 about \$40 per session. The single coefficient `layoutB 5.0` is a *difference*, not a mean — layout `B`

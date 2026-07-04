@@ -141,6 +141,24 @@ ggplot(studyhabits, aes(x = study, y = final)) +
   )
 ```
 
+![**The `final`-vs-`study` cloud with a loess summary and its pointwise SE band.** Each of the 200
+synthetic `studyhabits` points is plotted as in Step 2a; the added rust curve is a `loess` smoother
+(the shown Step 2b code, `geom_smooth(method = "loess", se = TRUE)`) tracing the local trend without
+committing to a straight-line model, and the shaded band around it is the pointwise standard-error
+band that `se = TRUE` draws. The curve runs roughly straight and upward across almost the whole
+range, with a slight widening of the band at the low- and high-study ends where fewer students sit —
+a visual match for the moderate, roughly linear association ($r \approx 0.58$; synthetic; seed set)
+you are about to name in words below.](../assets/figures/lab02_scatter_loess.png){#fig-lab02-scatter-loess
+fig-alt="A scatterplot with average weekly study hours (0 to 20) on the horizontal axis and final
+exam score (0 to 100) on the vertical axis. About 200 semi-transparent blue-gray points form a
+cloud drifting upward from around (4, 63) to (17, 96). A solid rust-colored curve runs through the
+middle of the cloud, rising steadily and nearly straight from about 62 at study = 4 to about 88
+by study = 14, then leveling off slightly toward study = 17. A translucent rust-colored band
+surrounds the curve, narrow in the dense middle of the data and visibly wider at both the low and
+high ends of study where points are sparser. A legend in the lower right reads 'points =
+observations', 'line = loess fit', and 'band = pointwise SE (se = TRUE).' A small italic note in
+the upper left reads 'n = 200 (synthetic; seed set).'"}
+
 Now read the picture in the four-part vocabulary, and write each reading as a sentence:
 
 - **Form:** the smoother runs roughly straight across the bulk of the data — there is no obvious bend
@@ -197,6 +215,22 @@ studyhabits %>%
 #> 2 hybrid      ...       75.0      ...
 #> 3 online      ...       71.0      ...
 ```
+
+![**Grouped boxplot of `final` by `format`, with group means marked as diamonds.** Each box shows
+one format's distribution of final exam scores as drawn by the shown `geom_boxplot()` code; the
+filled blue diamonds are the `stat_summary(fun = mean, ...)` layer, marking the group means at 78
+(`in_person`), 75 (`hybrid`), and 71 (`online`) — synthetic; seed set — printed beside each marker
+so the mean is legible independent of the box's own median line. The three boxes step downward left
+to right, and one low outlier point sits below the `online` whisker.](../assets/figures/lab02_boxplot_means.png){#fig-lab02-boxplot-means
+fig-alt="A boxplot with three boxes labeled in_person, hybrid, and online along the horizontal axis
+and final exam score (0 to 100) on the vertical axis. The boxes step downward left to right:
+in_person is highest (median about 78, box spanning about 72-84, whiskers to about 61-92), hybrid
+is in the middle (median about 76, box about 68-81, whiskers to about 55-96), and online is lowest
+(median about 71, box about 66-76, whiskers to about 54-86, with one open-circle outlier point near
+52 below its whisker). A filled blue-gray diamond marker on each box shows the group's locked mean
+-- 78, 75, and 71 respectively -- with the number printed beside each diamond. A legend in the
+upper right distinguishes the box (distribution, median line) from the diamond (group mean,
+locked)."}
 
 Read this picture as a sentence too: *the `in_person` group sits highest, the `hybrid` group a few
 points lower, and the `online` group lowest, with group mean finals of about 78, 75, and 71

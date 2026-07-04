@@ -50,6 +50,17 @@ number to go stale — when the data or the model changes, you re-render and eve
 sentence-with-a-number updates together. That single property — no manual transcription between analysis
 and write-up — removes one of the most common and most embarrassing sources of error in applied work.
 
+The picture below names the four stages that chain runs through, every time: the raw `studyhabits.csv`
+file, the single `.qmd` file that holds prose, code, and a fixed seed together, a fresh-session Quarto
+render, and the rendered HTML report that carries both the numbers and a record of the environment that
+produced them.
+
+![**One command, four stages: raw data becomes a rendered, checkable report.** A reproducible modeling
+report is a fixed pipeline, not a one-off: the raw `studyhabits.csv` data flow into a single `.qmd` file
+(prose, code, and `set.seed` together), which Quarto renders in a fresh session, producing a rendered HTML
+report that carries both the numbers and a `sessionInfo()` record. Nothing is copy-pasted between any two
+stages — the whole chain runs from one file and one render command.](../assets/figures/wk14_reproducibility_pipeline.png){#fig-wk14-pipeline fig-alt="A horizontal flow diagram of four labeled rectangular boxes numbered 1 through 4, connected left to right by three rust-colored arrows. Box 1: 'Raw data (studyhabits.csv)'. Box 2: '.qmd (prose + code + set.seed)'. Box 3: 'Quarto render (fresh session)'. Box 4: 'Rendered report (HTML, numbers + sessionInfo)'. A caption below the boxes reads: 'the whole chain runs from ONE .qmd file in a fresh session -- nothing is copy-pasted by hand.' No numeric data appear; the figure is a pure conceptual workflow diagram."}
+
 ## Setup and practice sequence
 
 In this lab you will build one small Quarto report end to end: a `.qmd` file that loads the synthetic

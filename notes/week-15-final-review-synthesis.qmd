@@ -187,6 +187,34 @@ m_log <- glm(passed ~ study, data = studyhabits, family = binomial)
 #> M3 kitchen sink          R^2 0.55  adj 0.539   (tiny gain over M2; AIC barely better)
 ```
 
+The picture below puts all six models side by side so you can see the same reasoning repeat across a
+line, a slope-drop, group bars, two fanning lines, an S-curve, and a bar chart of adjusted $R^2$.
+
+![**Six locked models from one dataset, read left to right and top to bottom as the arc of the semester.**
+Panel 1: the simple line $\hat y = 52.0 + 2.5x$, marking the $x=10$ prediction ($77.0$) against an actual
+score of $70$ (residual $e=-7$). Panel 2: the `study` slope dropping from $2.5$ (crude) to $1.8$ (adjusted
+for `prior_gpa`) — confounding revealed. Panel 3: the `format` group means $78/75/71$ (in-person baseline,
+hybrid $-3.0$, online $-7.0$). Panel 4: the interaction, non-worker slope $2.8$ vs. worker slope $1.6$,
+fanning apart as study hours increase. Panel 5: the logistic S-curve $\operatorname{logit}(\hat p) =
+-2.0+0.35x$, crossing $\hat p = 0.5$ near $x \approx 5.7$ and reaching $\hat p \approx 0.82$ at $x=10$.
+Panel 6: the adjusted-$R^2$ comparison, M1 $0.337$, M2 $0.505$, M3 $0.539$ — M2's large jump over M1 and
+M3's negligible gain over M2 is the parsimony argument in one bar chart (synthetic; seed set;
+`studyhabits`).](../assets/figures/wk15_synthesis_mosaic.png){#fig-wk15-synthesis-mosaic fig-alt="A six-panel
+grid (two rows of three). Panel 1, top left: a rising straight line from about (0, 52) to (20, 102) labeled
+y-hat = 52 + 2.5x, with a filled circle at (10, 77) and an X mark at (10, 70) connected by a short dotted
+vertical segment labeled residual -7. Panel 2, top middle: two points on a slope axis, a circle at height 2.5
+labeled 'crude' and a triangle at height 1.8 labeled 'adjusted', joined by a diagonal arrow pointing down and
+right, with the words 'confounding revealed' above. Panel 3, top right: three vertical bars labeled
+in_person (baseline), hybrid, and online, with heights 78, 75, and 71, and a dashed horizontal reference line
+at 78 running across all three bars. Panel 4, bottom left: two rising lines from about study=0 to study=20,
+a steeper solid rust line labeled 'non-worker: slope 2.8' running from about 52 up to 108, and a shallower
+dashed blue line labeled 'worker: slope 1.6' running from about 48 up to 80, the two lines fanning apart
+left to right. Panel 5, bottom middle: an S-shaped curve rising from about 0.12 at study=0 to about 0.99 at
+study=20, crossing the halfway point 0.5 near study=5.7 (marked with a square) and passing through about
+0.82 at study=10 (marked with a triangle), with dotted horizontal guides at 0 and 1. Panel 6, bottom right:
+three vertical bars labeled M1 (study), M2 (+prior_gpa), and M3 (kitchen sink), with heights 0.337, 0.505,
+and 0.539, and the label 'M2 wins' above the second bar."}
+
 Now read the thread as one argument. The simple line ($\hat y = 52.0 + 2.5\,x$) gave a first, *crude*
 answer: studying is associated with higher finals, and at $x = 10$ the model predicts $\hat y = 77.0$, so a
 student who studied 10 hours and scored 70 sits $e = 70 - 77 = -7$ points below the line. That residual is a

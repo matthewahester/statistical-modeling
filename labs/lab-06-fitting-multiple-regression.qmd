@@ -49,8 +49,8 @@ By the end of this lab you should be able to:
 - explain the drop from $2.5$ to $1.8$ as **confounding by `prior_gpa`**, and say which direction the
   confounding runs and why.
 
-The modeling target for the lab is this pair of fitted equations (both **synthetic, "as if fit"**, and
-both `verified: false` because the course's math gate is still blocked):
+The modeling target for the lab is this pair of fitted equations (both **synthetic, "as if fit"** —
+illustrative numbers, not independently re-derived here):
 
 $$
 \hat{y} = 52.0 + 2.5\,x_1
@@ -76,7 +76,7 @@ quoted in the Week 6 note and in this lab. Set it first, every time, before anyt
 # Lab 6 setup — studyhabits is SYNTHETIC; seed set so results are reproducible.
 set.seed(33003)
 
-# Here the data are generated, not loaded from disk. The code below
+# In this diagnostic the data are generated, not loaded from disk. The code below
 # is shown for study; you run it in your own R session. n = 200 students, one intro course.
 n <- 200
 prior_gpa <- round(pmin(4, pmax(0, rnorm(n, mean = 3.0, sd = 0.5))), 2)   # incoming GPA, 0-4
@@ -194,6 +194,19 @@ slope_crude - slope_adjusted
 (slope_crude - slope_adjusted) / slope_crude
 #> 0.28
 ```
+
+![**The `study` slope drops once the model adjusts for `prior_gpa`.** The crude model (`final ~ study`)
+puts the `study` slope at $2.5$; the adjusted model (`final ~ study + prior_gpa`) puts it at $1.8$ — a
+drop of $0.7$ points per weekly study hour, about a $28\%$ reduction, bracketed between the two bars
+(synthetic; seed set). This is exactly the `comparison` data frame printed above, drawn as a picture
+instead of a table.](../assets/figures/lab06_slope_comparison.png){#fig-lab06-slope-comparison
+fig-alt="A two-bar chart. The vertical axis is labeled study slope, points per weekly study hour, running
+from 0 to about 3.5. The left bar, labeled final tilde study, crude, is solid rust-brown and reaches a
+height of 2.5, with the value 2.5 printed above it. The right bar, labeled final tilde study plus
+prior_gpa, adjusted, is filled with a diagonal hatch pattern rather than a solid color and reaches a
+height of 1.8, with the value 1.8 printed above it. A bracket connects the tops of the two bars, drawn
+above both bars, with the text 'drop of 0.7 points (about 28%)' centered above the bracket, making the
+size of the decrease from the crude to the adjusted slope explicit."}
 
 The crude slope is $2.5$; the adjusted slope is $1.8$; the difference is $0.7$ points per study hour, about
 a $28\%$ reduction. Interpreted in one sentence: *adjusting for `prior_gpa` pulls roughly a quarter of the
