@@ -3,7 +3,7 @@ pagetitle: "Statistical Modeling"
 toc: false
 ---
 
-![](assets/hero-web-800.webp){srcset="assets/hero-web-800.webp 800w, assets/hero-web.webp 1400w" sizes="(min-width: 992px) 760px, 92vw" .course-hero-img fig-alt="Course identity hero for Statistical Modeling — a crimson crystalline cube cluster surrounded by regression-modeling graphics including the linear model equation, a residuals-versus-fitted plot, a normal Q-Q plot, a logistic-regression curve, prediction-quality and RMSE panels, and an AIC model-comparison chart, with the course title."}
+![](assets/hero-web-800.webp){srcset="assets/hero-web-800.webp 800w, assets/hero-web.webp 1400w" sizes="(min-width: 1200px) 1100px, 92vw" .course-hero-img .column-page fig-alt="Course identity hero for Statistical Modeling — a crimson crystalline cube cluster surrounded by regression-modeling graphics including the linear model equation, a residuals-versus-fitted plot, a normal Q-Q plot, a logistic-regression curve, prediction-quality and RMSE panels, and an AIC model-comparison chart, with the course title."}
 
 # Statistical Modeling {.course-landing-title}
 
